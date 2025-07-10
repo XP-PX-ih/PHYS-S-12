@@ -1,0 +1,49 @@
+//Classes are now behomeths
+class Chord_1 {
+  int buttonpin;
+
+  int extra;
+  int extra1;
+  int extra2;
+  int extra3;
+  int extra4;
+  int extra5;
+  int extra6;
+
+  char letter;
+
+  public:
+  Chord_1(int pin, char key, int e, int e1, int e2, int e3, int e4, int e5, int e6)
+  {
+    buttonpin = pin;
+    pinMode(buttonpin, INPUT_PULLUP);
+
+    extra = e;
+    pinMode(extra, INPUT_PULLUP);
+    extra1 = e1;
+    pinMode(extra1, INPUT_PULLUP);
+    extra2 = e2;
+    pinMode(extra2, INPUT_PULLUP);
+    extra3 = e3;
+    pinMode(extra3, INPUT_PULLUP);
+    extra4 = e4;
+    pinMode(extra4, INPUT_PULLUP);
+    extra5 = e5;
+    pinMode(extra5, INPUT_PULLUP);
+    extra6 = e6;
+    pinMode(extra6, INPUT_PULLUP);
+
+    letter = key;
+  }
+
+  void Update() {
+
+    digitalRead(buttonpin);
+    if((buttonpin == LOW) && (extra == HIGH) && (extra1 == HIGH) && (extra2 == HIGH) && (extra3 == HIGH) && (extra4 == HIGH) && (extra5 == HIGH) && (extra6 == HIGH)) {
+      Serial.println(letter);
+    }
+  }
+};
+
+//and the instances are sentences
+Chord_1 a1(D0, 's', D1, D2, D3, D4, D5, D6, D7);

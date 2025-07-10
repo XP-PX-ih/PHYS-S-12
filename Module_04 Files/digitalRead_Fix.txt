@@ -1,0 +1,6 @@
+void Update() {
+
+    if((digitalRead(buttonpin) == LOW) && (digitalRead(extra) == HIGH) && (digitalRead(extra1) == HIGH) && (digitalRead(extra2) == HIGH) && (digitalRead(extra3) == HIGH) && (digitalRead(extra4) == HIGH) && (digitalRead(extra5) == HIGH) && (digitalRead(extra6) == HIGH)) {
+      Serial.println(letter);
+    }
+  }

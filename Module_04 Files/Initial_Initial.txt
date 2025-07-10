@@ -1,0 +1,29 @@
+Chord_1 a1(D0, s);
+Chord_1 a2(D1, t);
+Chord_1 a3(D2, r);
+Chord_1 a4(D3, a);
+Chord_1 a5(D4, o);
+Chord_1 a6(D5, i);
+Chord_1 a7(D6, y);
+Chord_1 a8(D7, e);
+
+Chord_2 b1(D4, D7, b);
+Chord_2 b2(D6, D7, c);
+Chord_2 b3(D2, D3, f);
+Chord_2 b4(D1, D2, g);
+Chord_2 b5(D5, D7, h);
+Chord_2 b6(D0, D1, j);
+Chord_2 b7(D4, D6, k);
+Chord_2 b8(D4, D5, n);
+Chord_2 b9(D5, D6, u);
+Chord_2 b10(D0, D2, v);
+Chord_2 b11(D0, D3, w);
+
+Chord_3 c1(D1, D2, D3, d);
+Chord_3 c2(D5, D6, D7, l);
+Chord_3 c3(D4, D5, D6, m);
+Chord_3 c4(D4, D5, D7, p);
+Chord_3 c5(D0, D1, D3, q);
+Chord_3 c6(D0, D1, D2, x);
+
+Chord_4 d1(D0, D1, D2, D3, z);

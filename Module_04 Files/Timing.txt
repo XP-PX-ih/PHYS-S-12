@@ -1,0 +1,16 @@
+//Variables
+long initialDelay;
+long secondaryDelay;
+unsigned long previousMillis;
+
+//Defining Variables
+initialDelay = 100;
+	secondaryDelay = 150;
+previousMillis = 0;
+
+//Defining currentMillis
+unsigned long currentMillis = millis();
+
+//Avoiding the delay tag. Implemented into the if statement of the Update loop.
+(currentMillis - previousMillis >= initialDelay)
+(currentMillis - previousMillis >= secondaryDelay)

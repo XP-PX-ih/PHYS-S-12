@@ -1,0 +1,47 @@
+class Chord_1 {
+	int buttonpin;
+	char letter;
+
+	public:
+	Chord_1(int pin, char key)
+	{
+		buttonpin = pin;
+		pinMode(buttonpin, INPUT_PULLUP);
+
+		letter = key;
+	}
+
+	void Update() {
+
+		digitalRead(buttonpin);
+		if(buttonpin == LOW) {
+			Serial.println(letter);
+		}
+	}
+};
+
+class Chord_2 {
+	int buttonpin1;
+	int buttonpin2;
+	char letter1;
+
+	public:
+	Chord_2(int pin1, int pin2, char key1)
+	{
+		buttonpin1 = pin1;
+		pinMode(buttonpin1, INPUT_PULLUP);
+		buttonpin2 = pin2;
+		pinMode(buttonpin2, INPUT_PULLUP);
+
+		letter1 = key1;
+	}
+
+	void Update() {
+		digitalRead(buttonpin1);
+		digitalRead(buttonpin2);
+		if((buttonpin1 == LOW) && (buttonpin2 == LOW)) {
+			Serial.println(letter1);
+		}
+	}
+};
+//and so forth up to Chord_4
