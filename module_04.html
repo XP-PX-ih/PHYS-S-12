@@ -62,7 +62,16 @@
 
 		<h2>Program the Microcontroller</h2>
 		<p>For this assignment, I opted to gain a head start on my final project, or at least familiarity with it. I decided on developing the <a style="color: #000000" href="module_01.html"><u>one handed keyboard/mouse.</u></a> Since that project requires a good number of buttons, about 10, I wanted to figure out how to map those buttons to letters now rather than later. That way I could spend more time focusing on how to create the shell and circuits for the mouse/keyboard rather than the programming. Though I had doubts about my ability to do so, I wanted to see if I could get the majority of the chorded layout of the keyboard done beforehand, so I began programming eight buttons into a left handed artsey keybaord.. I referred to the left handed <a style="color: #000000" href="https://artsey.io/"><u>ARTSEY Layout</u></a> when programming them.</p>
-		[Insert Image of Physical Circuit]
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Images/IMG_0436.JPG" alt="no keyboard"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Images/IMG_0437.JPG" alt="no keyboard part 2"</img>
+				</td>
+			</tr>
+		</table>
 		[Insert Image of Schematic]
 		<p>To make the code much simpler to formulate, I separated the chords into classes. This will also allow for easy additions later on. The only downside to writing the code this way was that it took an hour to learn.</p>
 		<div style="background-color: #E6E6E6; width: 100%">
@@ -117,7 +126,7 @@
 			</code></pre>
 		</div>
 		<p>I then assigned pin numbers and letters to the different chords.</p>
-		<div style="background-color: #DFEBF6; width: 100%">
+		<div style="background-color: #E6E6E6; width: 100%">
 			<pre><code style="font-size: 105%">
 				Chord_1 a1(D0, s);
 				Chord_1 a2(D1, t);
@@ -208,7 +217,132 @@
 				//and the instances are sentences
 				Chord_1 a1(D0, 's', D1, D2, D3, D4, D5, D6, D7);
 			</code></pre>
-			</div>
+		</div>
+		<p>After uploading the code to the microcontroller, I soon discovered that none of the buttons did anything. I tested for voltage and current with the multimeter to make sure that none of the electrical components were off. The problem lied in my code. Bobby revealed to me that I had been trying to read the button instead of its value. The new if statements followed this format:</p>
+		<div style="background-color: #E6E6E6">
+			<pre><code style="font-size: 105%">
+				void Update() {
+
+				    if((digitalRead(buttonpin) == LOW) && (digitalRead(extra) == HIGH) && (digitalRead(extra1) == HIGH) && (digitalRead(extra2) == HIGH) && (digitalRead(extra3) == HIGH) && (digitalRead(extra4) == HIGH) && (digitalRead(extra5) == HIGH) && (digitalRead(extra6) == HIGH)) {
+				      Serial.println(letter);
+				    }
+				  }
+			</code></pre>
+		</div>
+		<p>After Bobby's help, I was finally able to type a single character. For whatever reason, the code only allowed for a single button press, no longer responding to any clicks past the first one. Multiple occurences was another problem, but I pushed that off to focus only on getting the keystrokes to work. However, it turns out that they were the same problem. The keystrokes were working, but I could not tell because there were so many extra instances of characters from a single press. To fix this, I added a delay system that prevented the code from repeating immediately.</p>
+		<div style"background-color: #E6E6E6">
+			<pre><code style="font-size: 105%">
+				//Variables
+				long initialDelay;
+				long secondaryDelay;
+				unsigned long previousMillis;
+
+				//Defining Variables
+				initialDelay = 100;
+   				secondaryDelay = 150;
+    			previousMillis = 0;
+
+    			//Defining currentMillis
+    			unsigned long currentMillis = millis();
+
+    			//Avoiding the delay tag. Implemented into the if statement of the Update loop.
+				(currentMillis - previousMillis >= initialDelay)
+				(currentMillis - previousMillis >= secondaryDelay)
+			</code></pre>
+		</div>
+		<p>The reason for the separate delays is because I was experimenting with trying to solve another problem: pressing more than one key resulted in zero responses. My hypothesis is that the first "if" statement is looping and preventing any of the chords from running. So for the assignment, I present a modest attempt at a keyboard. I will be back during final project construction to fix this issue.</p>
+		<div style="background-color: #E6E6E6">
+			<pre><code style="font-size: 105%">
+				class Chord_1 {
+				  int buttonpin;
+
+				  int extra;
+				  int extra1;
+				  int extra2;
+				  int extra3;
+				  int extra4;
+				  int extra5;
+				  int extra6;
+
+				  char letter;
+
+				  long initialDelay;
+				  long secondaryDelay;
+				  unsigned long previousMillis;
+
+				  public:
+				  Chord_1(int pin, char key, int e, int e1, int e2, int e3, int e4, int e5, int e6)
+				  {
+				    buttonpin = pin;
+				    pinMode(buttonpin, INPUT_PULLUP);
+
+				    extra = e;
+				    pinMode(extra, INPUT_PULLUP);
+				    extra1 = e1;
+				    pinMode(extra1, INPUT_PULLUP);
+				    extra2 = e2;
+				    pinMode(extra2, INPUT_PULLUP);
+				    extra3 = e3;
+				    pinMode(extra3, INPUT_PULLUP);
+				    extra4 = e4;
+				    pinMode(extra4, INPUT_PULLUP);
+				    extra5 = e5;
+				    pinMode(extra5, INPUT_PULLUP);
+				    extra6 = e6;
+				    pinMode(extra6, INPUT_PULLUP);
+
+				    letter = key;
+
+				    initialDelay = 100;
+				    secondaryDelay = 150;
+				    previousMillis = 0;
+				  }
+
+				  void Update() {
+				    unsigned long currentMillis = millis();
+				    if((digitalRead(buttonpin) == LOW) && (digitalRead(extra) == HIGH) && (digitalRead(extra1) == HIGH) && (digitalRead(extra2) == HIGH) && (digitalRead(extra3) == HIGH) && (digitalRead(extra4) == HIGH) && (digitalRead(extra5) == HIGH) && (digitalRead(extra6) == HIGH) && (currentMillis - previousMillis >= initialDelay)) {
+				      if((digitalRead(extra) == LOW) || (digitalRead(extra1) == LOW) || (digitalRead(extra2) == LOW) || (digitalRead(extra3) == LOW) || (digitalRead(extra4) == LOW) || (digitalRead(extra5) == LOW) || (digitalRead(extra6) == LOW) && (currentMillis - previousMillis >= secondaryDelay)) {
+				        break;
+				      }
+				      else {
+				        Serial.print(letter);
+				        previousMillis = currentMillis;
+				      }
+				    }
+				  }
+				};
+
+				Chord_1 a1(D0, 's', D1, D2, D3, D4, D5, D6, D7);
+				Chord_1 a2(D1, 't', D0, D2, D3, D4, D5, D6, D7);
+				Chord_1 a3(D2, 'r', D0, D1, D3, D4, D5, D6, D7);
+				Chord_1 a4(D3, 'a', D0, D1, D2, D4, D5, D6, D7);
+				Chord_1 a5(D4, 'o', D0, D1, D2, D3, D5, D6, D7);
+				Chord_1 a6(D5, 'i', D0, D1, D2, D3, D4, D6, D7);
+				Chord_1 a7(D6, 'y', D0, D1, D2, D3, D4, D5, D7);
+				Chord_1 a8(D7, 'e', D0, D1, D2, D3, D4, D5, D6);
+
+				void setup() {
+				  // put your setup code here, to run once:
+				  Serial.begin(9600);
+				}
+
+				void loop() {
+				  // put your main code here, to run repeatedly:
+				  a1.Update();
+				  a2.Update();
+				  a3.Update();
+				  a4.Update();
+				  a5.Update();
+				  a6.Update();
+				  a7.Update();
+				  a8.Update();
+				}
+			</code></pre>
+		</div>
+		<video width: 40% controls>
+			<source src="./Images/IMG_0441.mov">
+			womp womp pal
+		</video>
 	</div>
 </body>
 </html>
