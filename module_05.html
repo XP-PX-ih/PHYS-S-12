@@ -33,6 +33,24 @@
 	p {
 		font-size: 120%;
 	}
+
+	.col1 {
+		background-color: #AAC7D8;
+		text-align: center;
+	}
+
+	.col2 {
+		background-color: #DFEBF6;
+	}
+
+	.col3 {
+		background-color: #DFEBF6;
+	}
+
+	.col4 {
+		background-color: #AAC7D8;
+		text-align: center;
+	}
 </style>  
 
 <nav>
@@ -99,7 +117,7 @@
 				</td>
 			</tr>
 		</table>
-
+		<br>
 		<h2>3D Scanning</h2>
 		<p>I originally intended to 3D scan a clay model of the mouse chassis. This would have allowed me to grip the mouse and know if the form factor was acceptal before printing a smoother version. However, I decided against it as my modeling skills simply have too many imperfections that would result in me spending lots of time fixing them in Blender.</p>
 		<table style="width: 70%; margin-left: auto; margin-right: auto">
@@ -126,7 +144,7 @@
 				</td>
 			</tr>
 		</table>
-
+		<br>
 		<h2>Final Project Information</h2>
 		<p><b>Chosen Final Project: One Handed Keyboard+Mouse</b></p>
 		<p>The design of the mouse chassis is derived from a previous experiment on mouse shapes done by <a style="color: #000000" href="https://www.researchgate.net/publication/282659809_Evaluation_of_flat_angled_and_vertical_computer_mice_and_their_effects_on_wrist_posture_pointing_performance_and_preference"><u>Dan Odell and Peter Johnson</u></a>, especially their Model H. In place of the usual mouse buttons are eight keyboard keys that follow the <a style="color: #000000" href="https://artsey.io/"><u>ARTSEY.IO layout.</u></a> The actual mouse buttons are located on the side for the thumb to click. In the same area is a scroll wheel attached horizontally to the base. The top separates from the bottom. The base is symmetrical across the horizontal axis, while the top piece is asymmetrical and must be switched to accomadate a different dominant hand.</p>
@@ -193,69 +211,70 @@
 				</td>
 			</tr>
 		</table>
+		<br>
 		<table style="width: 70%; margin-left: auto; margin-right: auto">
-			<tr>
+			<tr style="background-color: #E6E6E6">
 				<th colspan="4"><p style="text-align: center">Bill of Materials</p></th>
 			</tr>
 			<tr>
-				<th>Quantity</th>
-				<th>Part</th>
-				<th>Description</th>
-				<th>Cost (per Unit)</th>
+				<th class="col1">Quantity</th>
+				<th class="col2">Part</th>
+				<th class="col3">Description</th>
+				<th class="col4">Cost (per Unit)</th>
 			</tr>
 			<tr>
-				<td>8</td>
-				<td>Omron B3F-4055</td>
-				<td>Make up the keys of the keyboard.</td>
-				<td>0.49</td>
+				<td class="col1"><p>8</p></td>
+				<td class="col2"><p>Omron B3F-4055</p></td>
+				<td class="col3"><p>Make up the keys of the keyboard.</p></td>
+				<td class="col4"><p>0.49</p></td>
 			</tr>
 			<tr>
-				<td>1</td>
-				<td>ESP32-WROOM-32</td>
-				<td>Needed to control and program mouse and keyboard. XIAO does not have enough pins</td>
-				<td>8.99</td>
+				<td class="col1"><p>1</p></td>
+				<td class="col2"><p>ESP32-WROOM-32</p></td>
+				<td class="col3"><p>Needed to control and program mouse and keyboard. XIAO does not have enough pins.</p></td>
+				<td class="col4"><p>8.99</p></td>
 			</tr>
 			<tr>
-				<td>1</td>
-				<td>Lenovo Essential USB Mouse</td>
-				<td>Exact model not needed. Any cheap mouse with an optical sensor will do. Purpose is to acquire the optical sensor and scrollwheel.</td>
-				<td>9.99</td>
+				<td class="col1"><p>1</p></td>
+				<td class="col2"><p>Lenovo Essential USB Mouse</p></td>
+				<td class="col3"><p>Exact model not needed. Any cheap mouse with an optical sensor will do. Purpose is to acquire the optical sensor and scrollwheel.</p></td>
+				<td class="col4"><p>9.99</p></td>
 			</tr>
 			<tr>
-				<td>2</td>
-				<td>Mouse Switches</td>
-				<td>For the left and right mouse buttons. Located in the button bin in the shop; I do not know the brand or model.</td>
-				<td>2.99</td>
+				<td class="col1"><p>2</p></td>
+				<td class="col2"><p>Mouse Switches</p></td>
+				<td class="col3"><p>For the left and right mouse buttons. Located in the button bin in the shop; I do not know the brand or model.</p></td>
+				<td class="col4"><p>2.99</p></td>
 			</tr>
 			<tr>
-				<td>1</td>
-				<td>Protoboard</td>
-				<td>To serve as the motherboard and connect all components</td>
-				<td>3.30</td>
+				<td class="col1"><p>1</p></td>
+				<td class="col2"><p>Protoboard</p></td>
+				<td class="col3"><p>To serve as the motherboard and connect all components.</p></td>
+				<td class="col4"><p>3.30</p></td>
 			</tr>
 			<tr>
-				<td>~50mm</td>
-				<td>Copper Vinyl</td>
-				<td>To make a short flexible circuit that will reduce the number of wires by 3.</td>
-				<td>1.00</td>
+				<td class="col1"><p>~50mm</p></td>
+				<td class="col2"><p>Copper Vinyl</p></td>
+				<td class="col3"><p>To make a short flexible circuit that will reduce the number of wires by 3.</p></td>
+				<td class="col4"><p>1.00</p></td>
 			</tr>
 			<tr>
-				<td>X</td>
-				<td>Barrel Jack</td>
-				<td>Allow for easier connection of the batteries to the protoboard</td>
-				<td>2.85</td>
+				<td class="col1"><p>X</p></td>
+				<td class="col2"><p>Barrel Jack</p></td>
+				<td class="col3"><p>Allow for easier connection of the batteries to the protoboard.</p></td>
+				<td class="col4"><p>2.85</p></td>
 			</tr>
 			<tr>
-				<td>X</td>
-				<td>Batteries</td>
-				<td>To power the mouse. Current amount and type is unkown.</td>
-				<td>~0.70</td>
+				<td class="col1"><p>X</p></td>
+				<td class="col2"><p>Batteries</p></td>
+				<td class="col3"><p>To power the mouse. Current amount and type is unkown.</p></td>
+				<td class="col4"><p>~0.70</p></td>
 			</tr>
 			<tr>
-				<td>X</td>
-				<td>3D Printer PLA Filament</td>
-				<td>Needed to print chassis and possibly other components</td>
-				<td>10.99</td>
+				<td class="col1"><p>X</p></td>
+				<td class="col2"><p>3D Printer PLA Filament</p></td>
+				<td class="col3"><p>Needed to print chassis and possibly other components.</p></td>
+				<td class="col4"><p>10.99</p></td>
 			</tr>
 		</table>
 	</div>
