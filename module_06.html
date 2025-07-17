@@ -61,7 +61,185 @@
 		<h1 style="text-align: center"><u>Assignments</u></h1>
 
 		<h2>Sensor</h2>
-		<p>I went with the Time of Flight proximity sensor that I modeled earlier in the semester. To connect it to the microcontroller, I followed the manufacterer's steps for setting it up: <a style="color: #000000" href="https://learn.adafruit.com/adafruit-vl53l1x/arduino"><u>Instructions.</u></a></p>
+		<p>For the sensor testing, I went with the Time of Flight proximity sensor that I had modeled earlier in the semester. To connect it to the microcontroller, I followed the manufacterer's steps for setting it up: <a style="color: #000000" href="https://learn.adafruit.com/adafruit-vl53l1x/arduino"><u>Found Here.</u></a> Since the manufactuerer's code output values in millimeters, calibration was simple. I measured a distance of 150mm and then checked the sensor's values. I added an extra 27mm to the sensor's value to match the measured distance.</p>
+
+<div style="background-color: #E6E6E6">
+<pre><code style="font-size: 105%">
+Serial.print(F("Distance: "));
+Serial.print(distance + 25);
+Serial.println(" mm");
+</code></pre>
+</div>
+
+		<p>For the trials, I started at 0mm and moved up in increments of one inch, since I did not have a meter stick at the time of testing, until I reached a maximum value of 73 inches. Each time, I recorded the distance that the cardboard was from the sensor and the sensor's reading. I compiled all of this data into a Google Sheet. I then converted the inches to millimeters and put the values into a graph.</p>
+		<div style="background-color: #AAC7D8; text-align: center">
+			<img style="width: 45%" src="./Module_06 Images/IMG_0485.JPG" alt="no sensor evaluations for you"</img>
+		</div>
+		<div style="background-color: #DFEBF6; text-align: center">
+			<img style="width: 50%" src="./Module_06 Images/TimeofFlight_Testing.png" alt="you gotta believe me I have data"</img>
+		</div>
+
+		<h2>Capacitor Sensor</h2>
+		<p>For my capacitor sensor, I wanted it to control a servo motor's position, so I created a rotating capacitor system. The idea was to map the capacitance values to the servo positions, hence allowing one to DFEBF6turn the capacitor to a position and have the servo mimic it. I cut strips of copper vinyl and put one of them onto a 17.1mm diameter cylinder. I then laser cut supports for the capacitor and inserted both sheets. I had to add some metal plates to the bottom of the supports because they were too light.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_06 Images/Screenshot (23).png" alt="fusion sketch"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_06 Images/IMG_0489.JPG" alt="the weight was too much for html"</img>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_06 Images/IMG_0487.JPG" alt="it didn't look great anyways"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_06 Images/IMG_0488.JPG" alt="the circle goes in the circle hole"</img>
+				</td>
+			</tr>
+		</table>
+		<p>I first tested the sensor without attaching a motor. The code I used was the provided code, except I changed the N_samples from 100 to 2000 to slow it down. I then tested seven different angles of rotation with the top cylinder and recorded the values in Google Sheets, to which I then made an equivalent graph. Each value includes my hand in contact with the alligator clip, as the values jumped up by about 100000 when I removed my hand.</p>
+		<div style="background-color: #DFEBF6; text-align: center">
+			<img style="width: 50%" src="./Module_06 Images/Capacitor_Testing.png" alt="imagine... dragons."</img>
+		</div>
+		<p>Once I had the values, I then attached the servo motor and tried to, intitially, map the values of the capacitor to the position values of the servo. However, I learned that you cannot map a long value that doesn't have a maximum or minimum to something that does. What I ended up doing instead was to set a range using "less than" and "greater than" signs. The first few times I tried doing this, it did not work. The reason, I found, was because when I had copied the code, I had excluded the "result" function as I did not see it necessary. However, I learned that the purpose of this function was to set a value to the function as "tx_rx" was an algorithm. Put simply, "result" allowed those values to be evaluated.</p>
+
+<div style="background-color: #E6E6E6">
+<pre><code style="font-size: 105%">
+#include <ESP32Servo.h>
+
+int servoPin = D6;
+int analog_pin = A0;
+int tx_pin = D7;
+
+long result;
+
+long tx_rx() {
+  int read_high;
+  int read_low;
+  int diff;
+  long int sum;
+  int N_samples = 2000;    // Number of samples to take.  Larger number slows it down, but reduces scatter.
+  for (int i = 0; i < N_samples; i++){
+      digitalWrite(tx_pin, HIGH);
+      read_high = analogRead(analog_pin);
+      delayMicroseconds(100);
+      digitalWrite(tx_pin, LOW);
+      read_low = analogRead(analog_pin);
+      diff = read_high - read_low;
+      sum += diff;
+    }
+  return sum;
+}
+
+class Spinner {
+  Servo servo;
+  int startPosition;
+  int updateInterval;
+  unsigned long lastUpdate;
+  int position;
+
+  public:
+  Spinner(int interval, int start){
+    updateInterval = interval;
+    startPosition = start-1;
+    position = startPosition;
+    lastUpdate = 0;
+  }
+
+  void Attach(int pin){
+    servo.attach(pin);
+    servo.write(startPosition);
+  }
+
+  void Detach(){
+    servo.detach();
+  }
+
+  void toTarget(){
+    
+      
+
+    if((millis() - lastUpdate) > updateInterval && (result >= 400000) && (result <= 548000)){
+      lastUpdate = millis();
+      position = 180;
+      servo.write(position);
+    }
+    else if((millis() - lastUpdate) > updateInterval && (result >= 548001) && (result <= 550000)){
+      lastUpdate = millis();
+      position = 157;
+      servo.write(position);
+    }
+    else if((millis() - lastUpdate) > updateInterval && (result >= 550001) && (result <= 600000)){
+      lastUpdate = millis();
+      position = 135;
+      servo.write(position);
+    }
+    else if((millis() - lastUpdate) > updateInterval && (result >= 600001) && (result <= 630000)){
+      lastUpdate = millis();
+      position = 112;
+      servo.write(position);
+    }
+    else if((millis() - lastUpdate) > updateInterval && (result >= 630001) && (result <= 690000)){
+      lastUpdate = millis();
+      position = 90;
+      servo.write(position);
+    }
+    else if((millis() - lastUpdate) > updateInterval && (result >= 690001) && (result <= 740000)){
+      lastUpdate = millis();
+      position = 67;
+      servo.write(position);
+    }
+    else if((millis() - lastUpdate) > updateInterval && (result >= 740001) && (result <= 900000)){
+      lastUpdate = millis();
+      position = 45;
+      servo.write(position);
+    }
+    else if((millis() - lastUpdate) > updateInterval && (result >= 900001) && (result <= 1140000)){
+      lastUpdate = millis();
+      position = 22;
+      servo.write(position);
+    }
+    else if((millis() - lastUpdate) > updateInterval && (result >= 1140000) && (result <= 1300000)){
+      lastUpdate = millis();
+      position = 0;
+      servo.write(position);
+    }
+  }
+};
+
+Spinner theHunter(0.5, 180);
+
+void setup() {
+    Serial.begin(9600);
+    theHunter.Attach(servoPin);
+    pinMode(tx_pin, OUTPUT);      //Pin 4 provides the voltage step
+}
+
+void loop() {
+  result = tx_rx();
+  Serial.println(result);
+  theHunter.toTarget();
+}
+</code></pre>
+</div>
+
+		<p>The downside to having a system like this is its sensitivity to the environment. Simply unplugging my laptop stops it from working because the tx_rx values change so much. If I really wanted, I could make different saves of the same code, only changing the ranges, if I desired to have it work in different environments.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 60%" src="./Module_06 Images/IMG_0494.JPG" alt="this is all wrong"</img>
+				</td>
+				<td>
+					<video style="width: 100%" controls>
+						<source src="./Module_06 Images/IMG_0492.mov">
+						it was really cool tho :(
+					</video>
+				</td>
+			</tr>
+		</table>
+
 	</div>
 </body>
 </html>
