@@ -1,89 +1,669 @@
 <!DOCTYPE html>
 <html>
 
-<!-- This is the MVP -->
-<title>Electronic Output Devices - S-12</title>
-
-<!-- Hyperlink and Paragraph Styling -->
 <style>
-	a:link {
- 	 color: #FFFFFF;
- 	 background-color: transparent;
- 	 text-decoration: none;
+	.nav_elements {
+		font-family: 'Courier New';
+		font-size: 16px;
+		color: #FFFFFF;
+		text-align: center;
+	}
+	.weektext {
+		font-family: 'Courier New';
+		font-size: 65px;
+		color: #FFFFFF;
+	}
+	.moduletext {
+		font-family: 'Courier New';
+		font-size: 40px;
+		color: #FFFFFF;
+	}
+	.nav_button {
+		width: 2%;
+		color: #FFFFFF;
+		font-family: 'Courier New';
+		font-size: 16px
+	}
+
+	.nav_button:hover {
+		background-image: linear-gradient(#BEC0C2, #A1A2A3);
+		transform: scale(1.05);
+		transition: all 0.2s;
+	}
+	h1 {
+		font-family: 'Courier New';
+		font-size: 40px;
+	}
+	h2{
+		font-family: 'Courier New';
+		font-size: 30px;
+	}
+	h3 {
+		font-family: 'Courier New';
+		font-size: 23px;
+	}
+	p {
+		font-family: 'Courier New';
+		font-size: 17px;
+	}
+	a {
+		color: #FFFFFF;
+		text-decoration: none;
 	}
 
 	a:visited {
-  	color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
+		color: #FFFFFF;
+		text-decoration: none;
 	}
 
-	a:hover {
-  	color: #D2DCE6;
-  	background-color: transparent;
-  	text-decoration: none;
+	code {
+		background-color: #E6E6E6;
 	}
+</style>
 
-	a:active {
- 	 color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
-	}
-
-	p {
-		font-size: 120%;
-	}
-</style> 
-
-<nav>
-	<table style="width: 100%">
-	<tr>
-		<td style="background-color: #44576D; padding-left: 1%; text-align: left">
-			<h1><a href="./index.html">Introduction to Digital Fabrication</a></h1>
-		</td>
-		<td style="background-color: #44576D; text-align: center">
-			<h2><a href="./about.html">About Me</a></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="background-color: #768A96; padding-left: 2%; text-align: left">
-			<h3 style="color: #FFFFFF">PHYS S-12 Summer 2025 || Canden Barnett</h3>
-		</td>
-		<td style="width: 12%; height: 5%; background: linear-gradient(to top left, transparent 0%, transparent 50%, #768A96 50%, #768A96 100%);"
-		</td>
-	</tr>
-	</table>
-	<br>
+<nav style="height: 100vh; width: 30%; position: fixed; left: 0; top: 0; z-index: 99; overflow: hidden">
+	<div style="height: 100%; width: 100%; padding-left: 2%; padding-right: 2%; background-image: linear-gradient(#1267E7, #082C63)">
+		<br><br>
+		<p class="nav_elements" style="margin-right: 5%">Introduction to Digital Fabrication</p>
+		<div style="text-align: center; margin-right: 5%">
+			<table style="width: 100%; margin-left: auto; margin-right: auto">
+				<tr>
+					<td class="nav_button">
+						<a href="index.html">
+							<div>
+								<p>Home</p>
+							</div>
+						</a>
+					</td>
+					<td class="nav_button">
+					<a href="about.html">
+						<div>
+							<p>About</p>
+						</div>
+					</a>
+					</td>
+					<td class="nav_button">
+						<p>Final Project</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p class="weektext">Electical Output Devices</p>
+		<p class="moduletext">Week 4</p>
+	</div>	
 </nav>
 
-<body style= "background-image: url(./Images/white-background.jpg); overflow-x: hidden">
-	<div style="margin-left: 10%; margin-right: 10%; padding-top: 1%; padding-bottom: 1%; padding-left: 2%; padding-right: 2%; background-color: #FFFFFF">
+<body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
+	<div style="margin-left: 32%; padding-right: 2%">
+		<h1 style="text-align: center">Assignments</h1>
+
+		<h2>Minimum Viable Product</h2>
+		<p>I figured the hardest art of my final project involved setting up a bluetooth connection and having the ESP32 be recognized as a Bluetooth Device. I switched from the XIAO ESP32C3 to the ESP32 DevKit v1 because the XIAO did not have enough pins to accomadate all the keyboard buttons, mouse buttons, and optical sensor pins. Since I had no understanding of how Bluetooth worked or even how to make it work, I turned to libraries for connection.</p>
+		<h3>ESP32 BLE Keyboard</h3>
+		<a style="color: #000000" href="https://github.com/T-vK/ESP32-BLE-Keyboard"><p><u>To GitHub Page</u></p></a>
+		<p>When I first tried to use this library, it failed with a lot of errors that I did not understand. Jessica helped me figure out that the problem was variable conversion, specifically with Strings. I did some research and found that I needed to add ".c_str()" to all of the "std::string" variables. The two variables that I needed to change were "deviceName" and "deviceManufacturer" in the .cpp file. After this, everything worked correctly and I implemented the library into my previous keyboard code.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 60%" src="./Module_07 Images/IMG_0502.JPG" alt="plaese work"</img>
+				</td>
+				<td>
+					<video style="width: 100%" controls>
+						<source src="./Module_07 Images/IMG_0504.mov">
+						AAAAAAAAAAAAAAAAAAA
+					</video>
+				</td>
+			</tr>
+		</table>
+
+		<h3>ESP32 BLE Mouse</h3>
+		<a style="color: #000000" href="https://github.com/T-vK/ESP32-BLE-Mouse"><p><u>To GitHub Page</u></p></a>
+		<p>This library had the exact same problem as the BLE Keyboard one. However, for some reason my computer had bluetooth problems when I initially tested this program, so for a while I was confused as to why it was not working. I tested it on other people's devices and found that it worked for them, so I reset some bluetooth settings and got it to work on mine. 
+
+		<h3>ESP32 BLE Combo</h3>
+		<a style="color: #000000" href="https://github.com/Georgegipa/ESP32-BLE-Combo"><p><u>To GitHub Page</u></p></a>
+		<p>When I tried combining the libraries in my code, it failed to work at all. I had previouslly come across forks of both libraries, so I decided to turn to one of those to see if it fixed the problems. Luckily, it did, and I was able to use both the keyboard and mouse at the same time. Something to note for those who may wish to use this library: unlike BLE Mouse and BLE Keyboard where you need to include "Keyboard.begin" or "Mouse.begin" in your setup for the device to start working, BLE Combo only requires a single one to work. I personally used "Keyboard.begin." This library also had the same problems as the others with the strings, though the problem variables were the exact same so it was an easy fix. I uploaded the code to a sketch I made, as BLE Combo did not come with an example that combined both features, and it worked. Here's the code I created to test the BLE Combo library:</p>
+		<div style="background-color: #E6E6E6">
+		<pre style="width: 100%"><code>
+#include <BleKeyboard.h>
+#include <BleMouse.h>
+
+int key = 32;
+int m1 = 2;
+
+void setup() {
+  // put your setup code here, to run once:
+  Keyboard.begin();
+  pinMode(key, INPUT_PULLUP);
+  pinMode(m1, INPUT_PULLUP);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  while(bleDevice.isConnected()){
+    if(digitalRead(key) == LOW){
+      Keyboard.print("among us");
+    }
+    if(digitalRead(m1) == LOW){
+      Mouse.click(MOUSE_LEFT);
+    }
+  }
+}
+
+		</code></pre>
+		</div>
+		<br>
+
+		<p>I used the same timing system for the mouse presses as I did for the keyboard. Here's the code I used to make the buttons work:</p>
+		<div style="background-color: #E6E6E6">
+		<pre style="width: 100%"><code>
+int m_delayTime = 250;
+unsigned long m_previousMillis = 0;
+
+//Mouse Commands
+    unsigned long m_currentMillis = millis();
+    if((digitalRead(mPrimary) == LOW) && (m_currentMillis - m_previousMillis >= m_delayTime)){
+      Mouse.click(MOUSE_LEFT);
+      m_previousMillis = m_currentMillis;
+    }
+    if((digitalRead(mMiddle) == LOW) && (m_currentMillis - m_previousMillis >= m_delayTime)){
+      Mouse.click(MOUSE_MIDDLE);
+      m_previousMillis = m_currentMillis;
+    }
+    if((digitalRead(mSecondary) == LOW) && (m_currentMillis - m_previousMillis >= m_delayTime)){
+      Mouse.click(MOUSE_RIGHT);
+      m_previousMillis = m_currentMillis;
+    }
+		</code></pre>
+		</div>
+		<p>I then tried to add more commands besides letters to the keyboard, but it failed to work. I later learned that it was because I had forgotten to include "b12.Update();..." into the loop function. I then tried fixing the overlapping key presses, but after many failed attempts moved towards coding the mouse movement. Since I did not have an optical sensor at the time, I used an LIS3DH accelerometer. I downloaded the library from Arduino and it worked just fine in the example, but when I put it into my main code it started crashing the ESP32 due to a core 1 panic error. I started working on the timing again, but after many failed attempts yet again, I went back to the accelerometer. The problem, as it turns out, was the exclusion of a couple lines of code that were dsiguised in condition statements and comments in the specific example that I was using. I discovered I was missing "lis.begin" and "lis.setRange" after switching to a different LIS3DH example.
+		<div style="background-color: #E6E6E6">
+		<pre style="width: 100%"><code>
+double displacementX; 
+double displacementY;
+double time_squared;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Keyboard.begin();
+  pinMode(mPrimary, INPUT_PULLUP);
+  pinMode(mMiddle, INPUT_PULLUP);
+  pinMode(mSecondary, INPUT_PULLUP);
+
+  lis.begin(0x18);
+  lis.setRange(LIS3DH_RANGE_2_G);
+
+  // lis.setPerformanceMode(LIS3DH_MODE_LOW_POWER);
+  Serial.print("Performance mode set to: ");
+  switch (lis.getPerformanceMode()) {
+    case LIS3DH_MODE_NORMAL: Serial.println("Normal 10bit"); break;
+    case LIS3DH_MODE_LOW_POWER: Serial.println("Low Power 8bit"); break;
+    case LIS3DH_MODE_HIGH_RESOLUTION: Serial.println("High Resolution 12bit"); break;
+  }
+
+  // lis.setDataRate(LIS3DH_DATARATE_50_HZ);
+  lis.setDataRate(LIS3DH_DATARATE_50_HZ);
+}
+		</code></pre>
+		</div>
+
+		<p>I then got to work on mapping the accelerometer values to mouse movement. I managed this by converting acceleratino to displacement using <code> a = v/t = (x/t)/t = x/(t^2)</code>. My first few attempts resulted in spuratic mouse movements. I found that the problemw as because I had set "time_squared" to "millis() * millis()," which was not the correct time increment. To fix this, I set the data rate to 50Hz and then switched time_squared to (0.02 * 0.02).
+		<div style="background-color: #E6E6E6">
+		<pre style="width: 100%"><code>
+//Mouse Movement
+    unsigned long a_currentMillis = millis();
+
+    lis.read();
+    sensors_event_t event;
+    lis.getEvent(&event);
+
+    time_squared = (0.02  * 0.02 );
+    displacementX = (((event.acceleration.x - 0.2) * 10000) * time_squared);
+    displacementY = (((event.acceleration.y + 0.4) * 10000) * time_squared);
+
+    Mouse.move(displacementX, displacementY, 0);
+  }
+		</code></pre>
+		</div>
+		<p>The accelerometer turned the mouse into a gyro controller to which I only somewhat understand as to why. Though since I did not plan to use an accelerometer in the first place, I just stuck with it.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 60%" src="./Module_07 Images/IMG_0523.JPG" alt="finally, a worthy opponenet"</img>
+				</td>
+				<td>
+					<video style="width: 100%" controls>
+						<source src="./Module_07 Images/IMG_0522.MOV">
+						our battle will be legendary
+					</video>
+				</td>
+			</tr>
+		</table>
+
+		<h3>(Almost) Completed Code</h3>
+		<div style="background-color: #E6E6E6">
+		<pre style="width: 100%"><code>
+#include <BleKeyboard.h>
+#include <BleMouse.h>
+
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_LIS3DH.h>
+#include <Adafruit_Sensor.h>
+
+// Used for software SPI
+#define LIS3DH_CLK 13
+#define LIS3DH_MISO 12
+#define LIS3DH_MOSI 11
+// Used for hardware & software SPI
+#define LIS3DH_CS 10
 
 
+Adafruit_LIS3DH lis = Adafruit_LIS3DH();
 
-Documentation Rambling:
-For my minimal viable product, I switched from the XIAO ESP32C3 to the ESP32 DevBoard because my final project requires more pins than the XIAO has. Switching now would give me time to aquaint myself with the different microcontroller. I figured the hardest part of my final project involved connecting the optical sensor to the microcontroller and having the inputs on the ESP32 output onto the computer themself rather than the serial monitor. After some research, I found that bluetooth will be easier than a USB connection because the ESP32-WROOM-32 does not have USB HID capabilities.
+/* 
+Keyboard Layout:43
+[kP1] [kP2] [kP3] [kP4]
+[kP5] [kP6] [kP7] [kP8]
+*/
+int kP1 = 32;
+int kP2 = 25;
+int kP3 = 26;
+int kP4 = 14;
+int kP5 = 12;
+int kP6 = 33;
+int kP7 = 13;
+int kP8 = 27;
 
-Bluetooth ESP32 Keyboard: https://github.com/T-vK/ESP32-BLE-Keyboard
-The bluetooth keyboard library did not work initially. I had to enter the .cpp file itself and edit the code to include ".c_str()" on all the std::string functions. Thankfully there were only two of them. I added a few lines of code to my previous keyboard code and it worked wonderfully.
-[Insert Code Corrections/Additions]
-[Insert Video of Keyboard Working]
+int mPrimary = 4;
+int mMiddle = 0;
+int mSecondary = 2;
 
-Bluetooth ESP32 Mouse: https://github.com/T-vK/ESP32-BLE-Mouse
-Had the exact same problem with strings as the keyboard. To simplify the example test, I turned it into an autoclicker. It did not work. After a lot of trials, I found that it worked on everyone's device but mine. I deleted some COM ports that were being taken up by other bluetooth devices and that seemed to fix the problem.
+class Alphabet_1 {
+  int buttonpin_11;
 
-I then implemented both libraries into my keyboard code to test simultaneous usage. My initial setup did not work: it resulted in neither mouse nor keyboard outputs.
+  int extra_11;
+  int extra_12;
+  int extra_13;
+  int extra_14;
+  int extra_15;
+  int extra_16;
+  int extra_17;
 
-https://github.com/Georgegipa/ESP32-BLE-Combo
-I switched to a fork of the two libraries. Fromt the Arduino skethes, it appeared to be the exact same, so I assumed the differences were in the library's code. To ensure no malfunctions, I delted the old libraries and just kept the combo. I created a short code to test the functions.
-[Insert Experiment Sketch]
-It had the same string problem as all the others. While working on the code, I found that there existed different outputs for the keyboard: "Keyboard.write" was for a single character or specific button, "Keyboard.press" was for built in keyboard keys, and "Keyboard.print" was for strings of characters. The library worked well, so now all I had left to do was implement it into my code and calibrate the timings.
+  char letter_10;
+
+  int delayTime;
+  unsigned long previousMillis;
+
+  public:
+  Alphabet_1(int pin_11, char key_10, int ext_11, int ext_12, int ext_13, int ext_14, int ext_15, int ext_16, int ext_17)
+  {
+    buttonpin_11 = pin_11;
+    pinMode(buttonpin_11, INPUT_PULLUP);
+
+    extra_11 = ext_11;
+    pinMode(extra_11, INPUT_PULLUP);
+    extra_12 = ext_12;
+    pinMode(extra_12, INPUT_PULLUP);
+    extra_13 = ext_13;
+    pinMode(extra_13, INPUT_PULLUP);
+    extra_14 = ext_14;
+    pinMode(extra_14, INPUT_PULLUP);
+    extra_15 = ext_15;
+    pinMode(extra_15, INPUT_PULLUP);
+    extra_16 = ext_16;
+    pinMode(extra_16, INPUT_PULLUP);
+    extra_17 = ext_17;
+    pinMode(extra_17, INPUT_PULLUP);
+
+    letter_10 = key_10;
+
+    delayTime = 250;
+    previousMillis = 0;
+  }
+
+  void Update() {
+    unsigned long currentMillis = millis();
+
+    while((digitalRead(buttonpin_11) == LOW) && (digitalRead(extra_11) == HIGH) && (digitalRead(extra_12) == HIGH) && (digitalRead(extra_13) == HIGH) && (digitalRead(extra_14) == HIGH) && (digitalRead(extra_15) == HIGH) && (digitalRead(extra_16) == HIGH) && (digitalRead(extra_17) == HIGH) && (currentMillis - previousMillis >= delayTime)) {
+      Keyboard.write(letter_10);
+      previousMillis = currentMillis;
+    }
+  }
+};
+
+class Alphabet_2 {
+  int buttonpin_21;
+  int buttonpin_22;
+
+  int extra_21;
+  int extra_22;
+  int extra_23;
+  int extra_24;
+  int extra_25;
+  int extra_26;
+
+  char letter_20;
+
+  int delayTime;
+  unsigned long previousMillis;
+
+  public:
+  Alphabet_2(int pin_21, int pin_22, char key_20, int ext_21, int ext_22, int ext_23, int ext_24, int ext_25, int ext_26)
+  {
+    buttonpin_21 = pin_21;
+    pinMode(buttonpin_21, INPUT_PULLUP);
+    buttonpin_22 = pin_22;
+    pinMode(buttonpin_22, INPUT_PULLUP);
+
+    extra_21 = ext_21;
+    pinMode(extra_21, INPUT_PULLUP);
+    extra_22 = ext_22;
+    pinMode(extra_22, INPUT_PULLUP);
+    extra_23 = ext_23;
+    pinMode(extra_23, INPUT_PULLUP);
+    extra_24 = ext_24;
+    pinMode(extra_24, INPUT_PULLUP);
+    extra_25 = ext_25;
+    pinMode(extra_25, INPUT_PULLUP);
+    extra_26 = ext_26;
+    pinMode(extra_26, INPUT_PULLUP);
+
+    letter_20 = key_20;
+
+    delayTime = 250;
+    previousMillis = 0;
+  }
+
+  void Update() {
+    unsigned long currentMillis = millis();
+
+    while((digitalRead(buttonpin_21) == LOW) && (digitalRead(buttonpin_22) == LOW) && (digitalRead(extra_21) == HIGH) && (digitalRead(extra_22) == HIGH) && (digitalRead(extra_23) == HIGH) && (digitalRead(extra_24) == HIGH) && (digitalRead(extra_25) == HIGH) && (digitalRead(extra_26) == HIGH) && (currentMillis - previousMillis >= delayTime)) {
+      Keyboard.write(letter_20);
+      previousMillis = currentMillis;
+
+   }
+  }
+};
+
+class Alphabet_3 {
+  int buttonpin_31;
+  int buttonpin_32;
+  int buttonpin_33;
+
+  int extra_31;
+  int extra_32;
+  int extra_33;
+  int extra_34;
+  int extra_35;
+
+  char letter_30;
+
+  int delayTime;
+  unsigned long previousMillis;
+
+  public:
+  Alphabet_3(int pin_31, int pin_32, int pin_33, char key_30, int ext_31, int ext_32, int ext_33, int ext_34, int ext_35)
+  {
+    buttonpin_31 = pin_31;
+    pinMode(buttonpin_31, INPUT_PULLUP);
+    buttonpin_32 = pin_32;
+    pinMode(buttonpin_32, INPUT_PULLUP);
+    buttonpin_33 = pin_33;
+    pinMode(buttonpin_33, INPUT_PULLUP);
+
+    extra_31 = ext_31;
+    pinMode(extra_31, INPUT_PULLUP);
+    extra_32 = ext_32;
+    pinMode(extra_32, INPUT_PULLUP);
+    extra_33 = ext_33;
+    pinMode(extra_33, INPUT_PULLUP);
+    extra_34 = ext_34;
+    pinMode(extra_34, INPUT_PULLUP);
+    extra_35 = ext_35;
+    pinMode(extra_35, INPUT_PULLUP);
+
+    letter_30 = key_30;
+
+    delayTime = 250;
+    previousMillis = 0;
+  }
+
+  void Update() {
+    unsigned long currentMillis = millis();
+
+    while((digitalRead(buttonpin_31) == LOW) && (digitalRead(buttonpin_32) == LOW) && (digitalRead(buttonpin_33) == LOW) && (digitalRead(extra_31) == HIGH) && (digitalRead(extra_32) == HIGH) && (digitalRead(extra_33) == HIGH) && (digitalRead(extra_34) == HIGH) && (digitalRead(extra_35) == HIGH) && (currentMillis - previousMillis >= delayTime)) {
+      Keyboard.write(letter_30);
+      previousMillis = currentMillis;
+    }
+  }
+};
+
+class Alphabet_4 {
+  int buttonpin_41;
+  int buttonpin_42;
+  int buttonpin_43;
+  int buttonpin_44;
+
+  int extra_41;
+  int extra_42;
+  int extra_43;
+  int extra_44;
+
+  char letter_40;
+
+  int delayTime;
+  unsigned long previousMillis;
+
+  public:
+  Alphabet_4(int pin_41, int pin_42, int pin_43, int pin_44, char key_40, int ext_41, int ext_42, int ext_43, int ext_44)
+  {
+    buttonpin_41 = pin_41;
+    pinMode(buttonpin_41, INPUT_PULLUP);
+    buttonpin_42 = pin_42;
+    pinMode(buttonpin_42, INPUT_PULLUP);
+    buttonpin_43 = pin_43;
+    pinMode(buttonpin_43, INPUT_PULLUP);
+    buttonpin_44 = pin_44;
+    pinMode(buttonpin_44, INPUT_PULLUP);
+
+    extra_41 = ext_41;
+    pinMode(extra_41, INPUT_PULLUP);
+    extra_42 = ext_42;
+    pinMode(extra_42, INPUT_PULLUP);
+    extra_43 = ext_43;
+    pinMode(extra_43, INPUT_PULLUP);
+    extra_44 = ext_44;
+    pinMode(extra_44, INPUT_PULLUP);
+
+    letter_40 = key_40;
+
+    delayTime = 250;
+    previousMillis = 0;
+  }
+
+  void Update() {
+    unsigned long currentMillis = millis();
+    
+    while((digitalRead(buttonpin_41) == LOW) && (digitalRead(buttonpin_42) == LOW) && (digitalRead(buttonpin_43) == LOW) && (digitalRead(buttonpin_44) == LOW) && (digitalRead(extra_41) == HIGH) && (digitalRead(extra_42) == HIGH) && (digitalRead(extra_43) == HIGH) && (digitalRead(extra_44) == HIGH) && (currentMillis - previousMillis >= delayTime)) {
+      Keyboard.write(letter_40);
+      previousMillis = currentMillis;
+    }
+  }
+};
+
+Alphabet_1 a1(kP1, 's', kP2, kP3, kP4, kP5, kP6, kP7, kP8);
+Alphabet_1 a2(kP2, 't', kP1, kP3, kP4, kP5, kP6, kP7, kP8);
+Alphabet_1 a3(kP3, 'r', kP1, kP2, kP4, kP5, kP6, kP7, kP8);
+Alphabet_1 a4(kP4, 'a', kP1, kP2, kP3, kP5, kP6, kP7, kP8);
+Alphabet_1 a5(kP5, 'o', kP1, kP2, kP3, kP4, kP6, kP7, kP8);
+Alphabet_1 a6(kP6, 'i', kP1, kP2, kP3, kP4, kP5, kP7, kP8);
+Alphabet_1 a7(kP7, 'y', kP1, kP2, kP3, kP4, kP5, kP6, kP8);
+Alphabet_1 a8(kP8, 'e', kP1, kP2, kP3, kP4, kP5, kP6, kP7);
+
+Alphabet_2 b1(kP5, kP8, 'b', kP1, kP2, kP3, kP4, kP6, kP7);
+Alphabet_2 b2(kP7, kP8, 'c', kP1, kP2, kP3, kP4, kP5, kP6);
+Alphabet_2 b3(kP3, kP4, 'f', kP1, kP2, kP5, kP6, kP6, kP8);
+Alphabet_2 b4(kP2, kP3, 'g', kP1, kP4, kP5, kP6, kP7, kP8);
+Alphabet_2 b5(kP6, kP8, 'h', kP1, kP2, kP3, kP4, kP5, kP7);
+Alphabet_2 b6(kP1, kP2, 'j', kP3, kP4, kP5, kP6, kP7, kP8);
+Alphabet_2 b7(kP5, kP7, 'k', kP1, kP2, kP3, kP4, kP6, kP8);
+Alphabet_2 b8(kP5, kP6, 'n', kP1, kP2, kP3, kP4, kP7, kP8);
+Alphabet_2 b9(kP6, kP7, 'u', kP1, kP2, kP3, kP4, kP5, kP8);
+Alphabet_2 b10(kP1, kP3, 'v', kP2, kP4, kP5, kP6, kP7, kP8);
+Alphabet_2 b11(kP1, kP4, 'w', kP2, kP3, kP5, kP6, kP7, kP8);
+Alphabet_2 b12(kP4, kP8, KEY_RETURN, kP1, kP2, kP3, kP5, kP6, kP7);
+Alphabet_2 b13(kP4, kP7, '.', kP1, kP2, kP3, kP5, kP6, kP8);
+Alphabet_2 b14(kP4, kP6, ',', kP1, kP2, kP3, kP5, kP7, kP8);
+Alphabet_2 b15(kP4, kP5, '/', kP1, kP2, kP3, kP6, kP7, kP8);
+Alphabet_2 b16(kP2, kP6, '!', kP1, kP3, kP4, kP5, kP7, kP8);
+Alphabet_2 b17(kP3, kP8, KEY_BACKSPACE, kP1, kP2, kP4, kP5, kP6, kP7);
+Alphabet_2 b18(kP3, kP6, KEY_DELETE, kP1, kP2, kP4, kP5, kP7, kP8);
+
+Alphabet_3 c1(kP2, kP3, kP4, 'd', kP1, kP5, kP6, kP7, kP8);
+Alphabet_3 c2(kP6, kP7, kP8, 'l', kP1, kP2, kP3, kP4, kP5);
+Alphabet_3 c3(kP5, kP6, kP7, 'm', kP1, kP2, kP3, kP4, kP8);
+Alphabet_3 c4(kP5, kP6, kP8, 'p', kP1, kP2, kP3, kP4, kP7);
+Alphabet_3 c5(kP1, kP2, kP4, 'q', kP3, kP5, kP6, kP7, kP8);
+Alphabet_3 c6(kP1, kP2, kP3, 'x', kP4, kP5, kP6, kP7, kP8);
+Alphabet_3 c7(kP3, kP4, kP5, KEY_ESC, kP1, kP2, kP6, kP7, kP8);
+Alphabet_3 c8(kP4, kP6, kP7, '\'', kP1, kP2, kP3, kP5, kP8);
+
+Alphabet_4 d1(kP1, kP2, kP3, kP4, 'z', kP5, kP6, kP7, kP8);
+Alphabet_4 d2(kP2, kP3, kP4, kP5, KEY_TAB, kP1, kP6, kP7, kP8);
+Alphabet_4 d3(kP5, kP6, kP7, kP8, KEY_SPACE, kP1, kP2, kP3, kP4);
 
 
+int m_delayTime = 250;
+unsigned long m_previousMillis = 0;
 
+double displacementX; 
+double displacementY;
+double time_squared;
 
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Keyboard.begin();
+  pinMode(mPrimary, INPUT_PULLUP);
+  pinMode(mMiddle, INPUT_PULLUP);
+  pinMode(mSecondary, INPUT_PULLUP);
 
+  lis.begin(0x18);
+  lis.setRange(LIS3DH_RANGE_2_G);
+
+  // lis.setPerformanceMode(LIS3DH_MODE_LOW_POWER);
+  Serial.print("Performance mode set to: ");
+  switch (lis.getPerformanceMode()) {
+    case LIS3DH_MODE_NORMAL: Serial.println("Normal 10bit"); break;
+    case LIS3DH_MODE_LOW_POWER: Serial.println("Low Power 8bit"); break;
+    case LIS3DH_MODE_HIGH_RESOLUTION: Serial.println("High Resolution 12bit"); break;
+  }
+
+  // lis.setDataRate(LIS3DH_DATARATE_50_HZ);
+  lis.setDataRate(LIS3DH_DATARATE_50_HZ);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  while(bleDevice.isConnected()) {
+    d1.Update();
+    d2.Update();
+    d3.Update();
+
+    c1.Update();
+    c2.Update();
+    c3.Update();
+    c4.Update();
+    c5.Update();
+    c6.Update();
+    c7.Update();
+    c8.Update();
+
+    b1.Update();
+    b2.Update();
+    b3.Update();
+    b4.Update();
+    b5.Update();
+    b6.Update();
+    b7.Update();
+    b8.Update();
+    b9.Update();
+    b10.Update();
+    b11.Update();
+    b12.Update();
+    b13.Update();
+    b14.Update();
+    b15.Update();
+    b16.Update();
+    b17.Update();
+    b18.Update();
+
+    a1.Update();
+    a2.Update();
+    a3.Update();
+    a4.Update();
+    a5.Update();
+    a6.Update();
+    a7.Update();
+    a8.Update();
+
+    //Mouse Commands
+    unsigned long m_currentMillis = millis();
+    if((digitalRead(mPrimary) == LOW) && (m_currentMillis - m_previousMillis >= m_delayTime)){
+      Mouse.click(MOUSE_LEFT);
+      m_previousMillis = m_currentMillis;
+    }
+    if((digitalRead(mMiddle) == LOW) && (m_currentMillis - m_previousMillis >= m_delayTime)){
+      Mouse.click(MOUSE_MIDDLE);
+      m_previousMillis = m_currentMillis;
+    }
+    if((digitalRead(mSecondary) == LOW) && (m_currentMillis - m_previousMillis >= m_delayTime)){
+      Mouse.click(MOUSE_RIGHT);
+      m_previousMillis = m_currentMillis;
+    }
+    //Mouse Movement
+    unsigned long a_currentMillis = millis();
+
+    lis.read();
+    sensors_event_t event;
+    lis.getEvent(&event);
+
+    time_squared = (0.02  * 0.02 );
+    displacementX = (((event.acceleration.x - 0.2) * 10000) * time_squared);
+    displacementY = (((event.acceleration.y + 0.4) * 10000) * time_squared);
+
+    Mouse.move(displacementX, displacementY, 0);
+  }
+}
+		</code></pre>
+		</div>
+
+		<br>
+		<p>In the middle of all of this, I had also decided to 3D model and print a new mouse chassis design. The dimension are the same as they were listed in <a style="color: #000000" href="module_05.html">Module 5.</a> The only difference is the width of the mouse which has been increased to 90mm to accomadate for the entire hand resting on top of the mouse. I need to increase the size of the keyboard buttons holes and add a little more curvature to the back and front left, but otherwise I'm happy with how it feels.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_07 Images/Screenshot (26).png" alt="agagahgahghagh"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_07 Images/Screenshot (27).png" alt="sighhhhhhh"</img>
+				</td>
+			</tr>
+		</table>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_07 Images/IMG_0519.JPG" alt="mouse"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_07 Images/IMG_0521.JPG" alt="I'm so tired"</img>
+				</td>
+			</tr>
+		</table>
 
 	</div>
 </body>
+
 </html>
