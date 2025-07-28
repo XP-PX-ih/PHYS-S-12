@@ -1,68 +1,116 @@
 <!DOCTYPE html>
 <html>
 
-<!-- This is Module 2 -->
-<title>2D Design and Cutting - S-12</title>
+<title>Module 02</title>
 
-<!-- Hyperlink and Paragraph Styling -->
 <style>
-	a:link {
- 	 color: #FFFFFF;
- 	 background-color: transparent;
- 	 text-decoration: none;
+	.nav_elements {
+		font-family: 'Courier New';
+		font-size: 16px;
+		color: #FFFFFF;
+		text-align: center;
+	}
+	.weektext {
+		font-family: 'Courier New';
+		font-size: 65px;
+		color: #FFFFFF;
+	}
+	.moduletext {
+		font-family: 'Courier New';
+		font-size: 40px;
+		color: #FFFFFF;
+	}
+	.nav_button {
+		width: 2%;
+		color: #FFFFFF;
+		font-family: 'Courier New';
+		font-size: 16px
+		transition: all 0.2s;
+	}
+
+	.nav_button:hover {
+		background-image: linear-gradient(#BEC0C2, #A1A2A3);
+		transform: scale(1.05);
+		transition: all 0.2s;
+	}
+	h1 {
+		font-family: 'Courier New';
+		font-size: 40px;
+	}
+	h2{
+		font-family: 'Courier New';
+		font-size: 30px;
+	}
+	h3 {
+		font-family: 'Courier New';
+		font-size: 23px;
+	}
+	p {
+		font-family: 'Courier New';
+		font-size: 17px;
+	}
+	a {
+		color: #FFFFFF;
+		text-decoration: none;
 	}
 
 	a:visited {
-  	color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
+		color: #FFFFFF;
+		text-decoration: none;
 	}
 
-	a:hover {
-  	color: #D2DCE6;
-  	background-color: transparent;
-  	text-decoration: none;
+	.download_button {
+		font-size: 17px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+		padding-left: 2%;
+		padding-right: 2%;
+		border: 0px solid;
+		background-image: linear-gradient(#FBBCC8, #F493A7);
+		transition: all 0.2s;
 	}
 
-	a:active {
- 	 color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
+	.download_button:hover {
+		transform: scale(1.05);
+		transition: all 0.2s;
 	}
+</style>
 
-	p {
-		font-size: 120%;
-	}
-
-	img {
-		text-align: center;
-	}
-</style> 
-
-<nav>
-	<table style="width: 100%">
-	<tr>
-		<td style="background-color: #44576D; padding-left: 1%; text-align: left">
-			<h1><a href="./index.html">Introduction to Digital Fabrication</a></h1>
-		</td>
-		<td style="background-color: #44576D; text-align: center">
-			<h2><a href="./about.html">About Me</a></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="background-color: #768A96; padding-left: 2%; text-align: left">
-			<h3 style="color: #FFFFFF">PHYS S-12 Summer 2025 || Canden Barnett</h3>
-		</td>
-		<td style="width: 12%; height: 5%; background: linear-gradient(to top left, transparent 0%, transparent 50%, #768A96 50%, #768A96 100%);"
-		</td>
-	</tr>
-	</table>
-	<br>
+<nav style="height: 100vh; width: 30%; position: fixed; left: 0; top: 0; z-index: 99; overflow: hidden">
+	<div style="height: 100%; width: 100%; padding-left: 2%; padding-right: 2%; background-image: linear-gradient(#1267E7, #082C63)">
+		<br><br>
+		<p class="nav_elements" style="margin-right: 5%">Introduction to Digital Fabrication</p>
+		<div style="text-align: center; margin-right: 5%">
+			<table style="width: 100%; margin-left: auto; margin-right: auto">
+				<tr>
+					<td class="nav_button">
+						<a href="index.html">
+							<div>
+								<p>Home</p>
+							</div>
+						</a>
+					</td>
+					<td class="nav_button">
+					<a href="about.html">
+						<div>
+							<p>About</p>
+						</div>
+					</a>
+					</td>
+					<td class="nav_button">
+						<p>Final Project</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p class="weektext">2D Design and Cutting</p>
+		<p class="moduletext">Week 1</p>
+	</div>	
 </nav>
 
-<body style= "background-image: url(./Images/white-background.jpg); overflow-x: hidden">
-	<div style="margin-left: 10%; margin-right: 10%; padding-top: 1%; padding-bottom: 1%; padding-left: 2%; padding-right: 2%; background-color: #FFFFFF">
-		<h1 style="text-align: center"><u>Assignments</u><h1>
+<body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
+	<div style="margin-left: 32%; padding-right: 2%">
+		<h1 style="text-align: center">Assignments<h1>
 
 		<h2>Cardboard Container</h2>
 		<p>Nathan taught us how to create a sketch and use the rectangle, circle, line, select, offset, mirror, and rectangular pattern tools in Fusion 360 to create a simple box with "fingers" or "teeth" that would allow it to hold itself together when folded. I taught myself how to reverse my zoom in and zoom out directions, and then immediately forgot how I did it. I deleted the original file of the box that we made with Nathan as I had made mine massive, though in hindsight I realize I could have simply adjusted the parameters. I had a few ideas of creativity for my box design, the main one being a basic house shape. However, I realized it would be too big so I decided to just engrave onto the box. I spent 40 minutes adding engravings. At least 20 of those minutes were spent making the Roblox Man Face.</p>
@@ -78,7 +126,8 @@
 			</tr>
 		</table>
 		
-		<p>After laser cutting, I realized that the fingers did not mesh together well as I did not account for laser kerf. Additionally, the engravings were too light. I had to hot glue the box together. <a href="./Downloadable Files/Canden - IDF Container.dxf" download><button type="button">Cardboard Container .DXF File</button></a></p>
+		<p>After laser cutting, I realized that the fingers did not mesh together well as I did not account for laser kerf. Additionally, the engravings were too light. I had to hot glue the box together.</p>
+		<a href="./Downloadable Files/Canden - IDF Container.dxf" download><button type="button" class="download_button">Cardboard Container .DXF File</button></a>
 		<br>
 		<table style="width: 70%; margin-left: auto; margin-right: auto">
 			<tr>
@@ -142,7 +191,8 @@
 			</tr>
 		</table>
 		
-		<p>I scaled up the model again and then fully assembled it. Overall, I am quite happy with how it turned out. However, I will need to take more caution when using hot glue as I managed to burn myself on the glue three times on the same finger. I also need to work over a smaller area when using hot glue, as I tried gluing across large sections within the hemisphere and that resulted in me having to redo glueing because it dried too quickly. <a href="./Downloadable Files/Canden - CircleBox_FINALbig.dxf" download><button type="button">Carboard Hemisphere .DXF File</button></a></p>
+		<p>I scaled up the model again and then fully assembled it. Overall, I am quite happy with how it turned out. However, I will need to take more caution when using hot glue as I managed to burn myself on the glue three times on the same finger. I also need to work over a smaller area when using hot glue, as I tried gluing across large sections within the hemisphere and that resulted in me having to redo glueing because it dried too quickly.</p>
+		<a href="./Downloadable Files/Canden - CircleBox_FINALbig.dxf" download><button type="button" class="download_button">Carboard Hemisphere .DXF File</button></a>
 		<br>
 		<table style="width: 70%; margin-left: auto; margin-right: auto">
 			<tr>
@@ -186,15 +236,20 @@
 			</tr>
 			<tr>
 				<td>
-					<a href="./Downloadable Files/Canden - Time_of_Flight Sensor v3.obj" download><button type="button">Proximity Sensor .obj File</button></a>
-					<a href="./Downloadable Files/Canden - Time_of_Flight Sensor v3.mtl" download><button type="button">Proximity Sensor .mtl File</button></a>
+					<a href="./Downloadable Files/Canden - Time_of_Flight Sensor v3.obj" download><button type="button" class="download_button">Proximity Sensor .obj File</button></a>
+					<a href="./Downloadable Files/Canden - Time_of_Flight Sensor v3.mtl" download><button type="button" class="download_button">Proximity Sensor .mtl File</button></a>
 				</td>
 				<td>
-					<a href="./Downloadable Files/Canden - Small_Clamp v3.obj" download><button type="button">Small Clamp .obj File</button></a>
-					<a href="./Downloadable Files/Canden - Small_Clamp v3.mtl" download><button type="button">Small Clamp .mtl File</button></a>
+					<a href="./Downloadable Files/Canden - Small_Clamp v3.obj" download><button type="button" class="download_button">Small Clamp .obj File</button></a>
+					<a href="./Downloadable Files/Canden - Small_Clamp v3.mtl" download><button type="button" class="download_button">Small Clamp .mtl File</button></a>
 				</td>
 		</table> 
-				
 	</div>
 </body>
+
+
+
+
+
+
 </html>

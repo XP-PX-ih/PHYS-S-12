@@ -1,0 +1,11 @@
+Outside class Final Project Documentation:
+
+Increased width to 100mm to better accomadate the whole hand.
+Increased length and width of keyboard button holes to 12mm to try and allow them to fit.
+
+Now repurposing the circuit board and optical navigation sensor from a Logitech office mouse.
+
+Optical Sensor Information:
+https://github.com/RandomDelta6/USB-Mouse
+https://user-images.githubusercontent.com/53912269/219696379-7a75c540-ba6e-4ce7-911a-cf19a2ec9020.png
+Switched to ESP32-S3-WROOM-1 with Bobby's input. Done so that the usb data of the optical sensor can be connected to the microcontroller. XIAO and DevKit did not have usb capabilities.

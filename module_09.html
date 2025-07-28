@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<title>Module 09</title>
+
+<style>
+	.nav_elements {
+		font-family: 'Courier New';
+		font-size: 16px;
+		color: #FFFFFF;
+		text-align: center;
+	}
+	.weektext {
+		font-family: 'Courier New';
+		font-size: 65px;
+		color: #FFFFFF;
+	}
+	.moduletext {
+		font-family: 'Courier New';
+		font-size: 40px;
+		color: #FFFFFF;
+	}
+	.nav_button {
+		width: 2%;
+		color: #FFFFFF;
+		font-family: 'Courier New';
+		font-size: 16px
+		transition: all 0.2s;
+	}
+
+	.nav_button:hover {
+		background-image: linear-gradient(#BEC0C2, #A1A2A3);
+		transform: scale(1.05);
+		transition: all 0.2s;
+	}
+	h1 {
+		font-family: 'Courier New';
+		font-size: 40px;
+	}
+	h2{
+		font-family: 'Courier New';
+		font-size: 30px;
+	}
+	h3 {
+		font-family: 'Courier New';
+		font-size: 23px;
+	}
+	p {
+		font-family: 'Courier New';
+		font-size: 17px;
+	}
+	a {
+		color: #FFFFFF;
+		text-decoration: none;
+	}
+
+	a:visited {
+		color: #FFFFFF;
+		text-decoration: none;
+	}
+
+	.download_button {
+		font-size: 17px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+		padding-left: 2%;
+		padding-right: 2%;
+		border: 0px solid;
+		background-image: linear-gradient(#FBBCC8, #F493A7);
+		transition: all 0.2s;
+	}
+
+	.download_button:hover {
+		transform: scale(1.05);
+		transition: all 0.2s;
+	}
+</style>
+
+<nav style="height: 100vh; width: 30%; position: fixed; left: 0; top: 0; z-index: 99; overflow: hidden">
+	<div style="height: 100%; width: 100%; padding-left: 2%; padding-right: 2%; background-image: linear-gradient(#1267E7, #082C63)">
+		<br><br>
+		<p class="nav_elements" style="margin-right: 5%">Introduction to Digital Fabrication</p>
+		<div style="text-align: center; margin-right: 5%">
+			<table style="width: 100%; margin-left: auto; margin-right: auto">
+				<tr>
+					<td class="nav_button">
+						<a href="index.html">
+							<div>
+								<p>Home</p>
+							</div>
+						</a>
+					</td>
+					<td class="nav_button">
+					<a href="about.html">
+						<div>
+							<p>About</p>
+						</div>
+					</a>
+					</td>
+					<td class="nav_button">
+						<p>Final Project</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p class="weektext">Module Title</p>
+		<p class="moduletext">Week 'X'</p>
+	</div>	
+</nav>
+
+<body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
+	<div style="margin-left: 32%; padding-right: 2%">
+		<h1>Heading 1</h1>
+		<h2>Heading 2</h2>
+		<h3>Heading 3</h3>
+		<p>Paragraph<p>
+</body>
+
+Documentation Rambling:
+I worked with Viraj and Mazan. We develeoped a wireless tic tac toe game with two different controllers and a gambling site. One controller was a single joystick that pressed down. The other controller had 9 buttons, one for each square on the board. I soldered the buttons to a protoboard while Mazan designed a casing for it.
+
+Code to Test the Buttons:
+int pin1 = 23;
+int pin2 = 22;
+int pin3 = 27;
+int pin4 = 14;
+int pin5 = 26;
+int pin6 = 19;
+int pin7 = 18;
+int pin8 = 4;
+int pin9 = 16;
+
+int delayTime = 250;
+unsigned long previousMillis = 0;
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode(pin1, INPUT_PULLUP);
+  pinMode(pin2, INPUT_PULLUP);
+  pinMode(pin3, INPUT_PULLUP);
+  pinMode(pin4, INPUT_PULLUP);
+  pinMode(pin5, INPUT_PULLUP);
+  pinMode(pin6, INPUT_PULLUP);
+  pinMode(pin7, INPUT_PULLUP);
+  pinMode(pin8, INPUT_PULLUP);
+  pinMode(pin9, INPUT_PULLUP);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  unsigned long currentMillis = millis();
+  while((digitalRead(pin1) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 1 is functional");
+    previousMillis = currentMillis;
+  }
+  while((digitalRead(pin2) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 2 is functional");
+    previousMillis = currentMillis;
+  }
+  while((digitalRead(pin3) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 3 is functional");
+    previousMillis = currentMillis;
+  }
+  while((digitalRead(pin4) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 4 is functional");
+    previousMillis = currentMillis;
+  }
+  while((digitalRead(pin5) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 5 is functional");
+    previousMillis = currentMillis;
+  }
+  while((digitalRead(pin6) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 6 is functional");
+    previousMillis = currentMillis;
+  }
+  while((digitalRead(pin7) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 7 is functional");
+    previousMillis = currentMillis;
+  }
+  while((digitalRead(pin8) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 8 is functional");
+    previousMillis = currentMillis;
+  }
+  while((digitalRead(pin9) == LOW) && (currentMillis - previousMillis >= delayTime)){
+    Serial.println("Pin 9 is functional");
+    previousMillis = currentMillis;
+  }
+}
+
+I began work on Firebase for the website.
+https://www.youtube.com/watch?v=9kRgVxULbag
+
+
+</html>

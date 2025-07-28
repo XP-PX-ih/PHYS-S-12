@@ -1,82 +1,116 @@
 <!DOCTYPE html>
 <html>
 
-<!-- This is Module 4 -->
-<title>3D Design and Printing - S-12</title>
+<title>Module 05</title>
 
-<!-- Hyperlink and Paragraph Styling -->
 <style>
-	a:link {
- 	 color: #FFFFFF;
- 	 background-color: transparent;
- 	 text-decoration: none;
+	.nav_elements {
+		font-family: 'Courier New';
+		font-size: 16px;
+		color: #FFFFFF;
+		text-align: center;
+	}
+	.weektext {
+		font-family: 'Courier New';
+		font-size: 65px;
+		color: #FFFFFF;
+	}
+	.moduletext {
+		font-family: 'Courier New';
+		font-size: 40px;
+		color: #FFFFFF;
+	}
+	.nav_button {
+		width: 2%;
+		color: #FFFFFF;
+		font-family: 'Courier New';
+		font-size: 16px
+		transition: all 0.2s;
+	}
+
+	.nav_button:hover {
+		background-image: linear-gradient(#BEC0C2, #A1A2A3);
+		transform: scale(1.05);
+		transition: all 0.2s;
+	}
+	h1 {
+		font-family: 'Courier New';
+		font-size: 40px;
+	}
+	h2{
+		font-family: 'Courier New';
+		font-size: 30px;
+	}
+	h3 {
+		font-family: 'Courier New';
+		font-size: 23px;
+	}
+	p {
+		font-family: 'Courier New';
+		font-size: 17px;
+	}
+	a {
+		color: #FFFFFF;
+		text-decoration: none;
 	}
 
 	a:visited {
-  	color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
+		color: #FFFFFF;
+		text-decoration: none;
 	}
 
-	a:hover {
-  	color: #D2DCE6;
-  	background-color: transparent;
-  	text-decoration: none;
+	.download_button {
+		font-size: 17px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+		padding-left: 2%;
+		padding-right: 2%;
+		border: 0px solid;
+		background-image: linear-gradient(#FBBCC8, #F493A7);
+		transition: all 0.2s;
 	}
 
-	a:active {
- 	 color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
+	.download_button:hover {
+		transform: scale(1.05);
+		transition: all 0.2s;
 	}
+</style>
 
-	p {
-		font-size: 120%;
-	}
-
-	.col1 {
-		background-color: #AAC7D8;
-		text-align: center;
-	}
-
-	.col2 {
-		background-color: #DFEBF6;
-	}
-
-	.col3 {
-		background-color: #DFEBF6;
-	}
-
-	.col4 {
-		background-color: #AAC7D8;
-		text-align: center;
-	}
-</style>  
-
-<nav>
-	<table style="width: 100%">
-	<tr>
-		<td style="background-color: #44576D; padding-left: 1%; text-align: left">
-			<h1><a href="./index.html">Introduction to Digital Fabrication</a></h1>
-		</td>
-		<td style="background-color: #44576D; text-align: center">
-			<h2><a href="./about.html">About Me</a></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="background-color: #768A96; padding-left: 2%; text-align: left">
-			<h3 style="color: #FFFFFF">PHYS S-12 Summer 2025 || Canden Barnett</h3>
-		</td>
-		<td style="width: 12%; height: 5%; background: linear-gradient(to top left, transparent 0%, transparent 50%, #768A96 50%, #768A96 100%);"
-		</td>
-	</tr>
-	</table>
-	<br>
+<nav style="height: 100vh; width: 30%; position: fixed; left: 0; top: 0; z-index: 99; overflow: hidden">
+	<div style="height: 100%; width: 100%; padding-left: 2%; padding-right: 2%; background-image: linear-gradient(#1267E7, #082C63)">
+		<br><br>
+		<p class="nav_elements" style="margin-right: 5%">Introduction to Digital Fabrication</p>
+		<div style="text-align: center; margin-right: 5%">
+			<table style="width: 100%; margin-left: auto; margin-right: auto">
+				<tr>
+					<td class="nav_button">
+						<a href="index.html">
+							<div>
+								<p>Home</p>
+							</div>
+						</a>
+					</td>
+					<td class="nav_button">
+					<a href="about.html">
+						<div>
+							<p>About</p>
+						</div>
+					</a>
+					</td>
+					<td class="nav_button">
+						<p>Final Project</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p class="weektext">3D Design and Printing</p>
+		<p class="moduletext">Week 3</p>
+	</div>	
 </nav>
 
-<body style= "background-image: url(./Images/white-background.jpg); overflow-x: hidden">
-	<div style="margin-left: 10%; margin-right: 10%; padding-top: 1%; padding-bottom: 1%; padding-left: 2%; padding-right: 2%; background-color: #FFFFFF">
-		<h1 style="text-align: center"><u>Assignments</u></h1>
+<body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
+	<div style="margin-left: 32%; padding-right: 2%">
+		<h1 style="text-align: center">Assignments</h1>
 
 		<h2>3D Printing</h2>
 		<p>For 3D printing, I did a test run of a chassis style for my final project. The 3D modeling of the chassis was not too difficult, looking more complex than it really is, with me mostly just using the loft and fillet tools. I split the base from the top so I could open it and add the electrical components later. The screw holes are sized for M3 screws, and I added small hexagonal holes for M3 lock nuts to go as well. In total, the chassis itself has 10 screws.</p>
@@ -101,7 +135,10 @@
 				</td>
 			</tr>
 		</table>
-		<p>I then started the prints of a full scale model. The main purpose of this print was to test form factor and screw fittings. The top did not fully finish printing because I did not check if there was enough filament when I left for the day. However, from what I have it is clear that the mouse is too big. I found that I needed to increase the diameter of area for the nuts, as the extra width from the 3D printer prevented it from fitting in. Otherwise, the screws fit nicely. For the final product, I will add holes for the buttons and make major tweaks to the form factor. <a href="./Downloadable Files/Canden - protoMouseBase.stl" download><button type="button">Prototype Chassis_Base .STL File</button></a> <a href="./Downloadable Files/Canden - protoMouseTop.stl" download><button type="button">Prototype Chassis_Top .STL File</button></a> <a href="./Downloadable Files/Canden_protoMouseBase.gcode" download><button type="button">Prototype Chassis_Base .gcode File</button></a></p>
+		<p>I then started the prints of a full scale model. The main purpose of this print was to test form factor and screw fittings. The top did not fully finish printing because I did not check if there was enough filament when I left for the day. However, from what I have it is clear that the mouse is too big. I found that I needed to increase the diameter of area for the nuts, as the extra width from the 3D printer prevented it from fitting in. Otherwise, the screws fit nicely. For the final product, I will add holes for the buttons and make major tweaks to the form factor.</p>
+		<a href="./Downloadable Files/Canden - protoMouseBase.stl" download><button type="button" class="download_button">Prototype Chassis_Base .STL File</button></a>
+		<a href="./Downloadable Files/Canden - protoMouseTop.stl" download><button type="button" class="download_button">Prototype Chassis_Top .STL File</button></a>
+		<a href="./Downloadable Files/Canden_protoMouseBase.gcode" download><button type="button" class="download_button">Prototype Chassis_Base .gcode File</button></a>
 		<table style="width: 70%; margin-left: auto; margin-right: auto">
 			<tr>
 				<td>
@@ -146,9 +183,9 @@
 		</table>
 		<br>
 		<h2>Final Project Information</h2>
-		<p><b>Chosen Final Project: One Handed Keyboard+Mouse</b></p>
+		<h3>Chosen Final Project: One Handed Keyboard+Mouse</h3>
 		<p>The design of the mouse chassis is derived from a previous experiment on mouse shapes done by <a style="color: #000000" href="https://www.researchgate.net/publication/282659809_Evaluation_of_flat_angled_and_vertical_computer_mice_and_their_effects_on_wrist_posture_pointing_performance_and_preference"><u>Dan Odell and Peter Johnson</u></a>, especially their Model H. In place of the usual mouse buttons are eight keyboard keys that follow the <a style="color: #000000" href="https://artsey.io/"><u>ARTSEY.IO layout.</u></a> The actual mouse buttons are located on the side for the thumb to click. In the same area is a scroll wheel attached horizontally to the base. The top separates from the bottom. The base is symmetrical across the horizontal axis, while the top piece is asymmetrical and must be switched to accomadate a different dominant hand.</p>
-		<p><b>Dimensions:</b></p>
+		<h3>Dimensions:</h3>
 		<p>Length: 150mm; Width: 60mm; Height: 60mm</p>
 		<p>Side Slope Angle: 20 degree Angle of Depression</p>
 		<div style="text-align: center">
@@ -279,4 +316,10 @@
 		</table>
 	</div>
 </body>
+
+
+
+
+
+
 </html>

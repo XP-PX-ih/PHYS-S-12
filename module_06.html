@@ -1,64 +1,116 @@
 <!DOCTYPE html>
 <html>
 
-<!-- This is Module 4 -->
-<title>Electronic Input Devices - S-12</title>
+<title>Module 06</html>
 
-<!-- Hyperlink and Paragraph Styling -->
 <style>
-	a:link {
- 	 color: #FFFFFF;
- 	 background-color: transparent;
- 	 text-decoration: none;
+	.nav_elements {
+		font-family: 'Courier New';
+		font-size: 16px;
+		color: #FFFFFF;
+		text-align: center;
+	}
+	.weektext {
+		font-family: 'Courier New';
+		font-size: 65px;
+		color: #FFFFFF;
+	}
+	.moduletext {
+		font-family: 'Courier New';
+		font-size: 40px;
+		color: #FFFFFF;
+	}
+	.nav_button {
+		width: 2%;
+		color: #FFFFFF;
+		font-family: 'Courier New';
+		font-size: 16px
+		transition: all 0.2s;
+	}
+
+	.nav_button:hover {
+		background-image: linear-gradient(#BEC0C2, #A1A2A3);
+		transform: scale(1.05);
+		transition: all 0.2s;
+	}
+	h1 {
+		font-family: 'Courier New';
+		font-size: 40px;
+	}
+	h2{
+		font-family: 'Courier New';
+		font-size: 30px;
+	}
+	h3 {
+		font-family: 'Courier New';
+		font-size: 23px;
+	}
+	p {
+		font-family: 'Courier New';
+		font-size: 17px;
+	}
+	a {
+		color: #FFFFFF;
+		text-decoration: none;
 	}
 
 	a:visited {
-  	color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
+		color: #FFFFFF;
+		text-decoration: none;
 	}
 
-	a:hover {
-  	color: #D2DCE6;
-  	background-color: transparent;
-  	text-decoration: none;
+	.download_button {
+		font-size: 17px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+		padding-left: 2%;
+		padding-right: 2%;
+		border: 0px solid;
+		background-image: linear-gradient(#FBBCC8, #F493A7);
+		transition: all 0.2s;
 	}
 
-	a:active {
- 	 color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
+	.download_button:hover {
+		transform: scale(1.05);
+		transition: all 0.2s;
 	}
+</style>
 
-	p {
-		font-size: 120%;
-	}
-</style>  
-
-<nav>
-	<table style="width: 100%">
-	<tr>
-		<td style="background-color: #44576D; padding-left: 1%; text-align: left">
-			<h1><a href="./index.html">Introduction to Digital Fabrication</a></h1>
-		</td>
-		<td style="background-color: #44576D; text-align: center">
-			<h2><a href="./about.html">About Me</a></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="background-color: #768A96; padding-left: 2%; text-align: left">
-			<h3 style="color: #FFFFFF">PHYS S-12 Summer 2025 || Canden Barnett</h3>
-		</td>
-		<td style="width: 12%; height: 5%; background: linear-gradient(to top left, transparent 0%, transparent 50%, #768A96 50%, #768A96 100%);"
-		</td>
-	</tr>
-	</table>
-	<br>
+<nav style="height: 100vh; width: 30%; position: fixed; left: 0; top: 0; z-index: 99; overflow: hidden">
+	<div style="height: 100%; width: 100%; padding-left: 2%; padding-right: 2%; background-image: linear-gradient(#1267E7, #082C63)">
+		<br><br>
+		<p class="nav_elements" style="margin-right: 5%">Introduction to Digital Fabrication</p>
+		<div style="text-align: center; margin-right: 5%">
+			<table style="width: 100%; margin-left: auto; margin-right: auto">
+				<tr>
+					<td class="nav_button">
+						<a href="index.html">
+							<div>
+								<p>Home</p>
+							</div>
+						</a>
+					</td>
+					<td class="nav_button">
+					<a href="about.html">
+						<div>
+							<p>About</p>
+						</div>
+					</a>
+					</td>
+					<td class="nav_button">
+						<p>Final Project</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p class="weektext">Electronic Input Devices</p>
+		<p class="moduletext">Week 3</p>
+	</div>	
 </nav>
 
-<body style= "background-image: url(./Images/white-background.jpg); overflow-x: hidden">
-	<div style="margin-left: 10%; margin-right: 10%; padding-top: 1%; padding-bottom: 1%; padding-left: 2%; padding-right: 2%; background-color: #FFFFFF">
-		<h1 style="text-align: center"><u>Assignments</u></h1>
+<body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
+	<div style="margin-left: 32%; padding-right: 2%">
+		<h1 style="text-align: center">Assignments</h1>
 
 		<h2>Sensor</h2>
 		<p>For the sensor testing, I went with the Time of Flight proximity sensor that I had modeled earlier in the semester. To connect it to the microcontroller, I followed the manufacterer's steps for setting it up: <a style="color: #000000" href="https://learn.adafruit.com/adafruit-vl53l1x/arduino"><u>Found Here.</u></a> Since the manufactuerer's code output values in millimeters, calibration was simple. I measured a distance of 150mm and then checked the sensor's values. I added an extra 27mm to the sensor's value to match the measured distance. The range for the readings of the sensor could be set using if statements, but I did not see any way in which to adjust the sensor's minimum and maximum range.</p>
@@ -72,10 +124,10 @@ Serial.println(" mm");
 </div>
 
 		<p>For the trials, I started at 0mm and moved up in increments of one inch, since I did not have a meter stick at the time of testing, until I reached a maximum value of 73 inches. Each time, I recorded the distance that the cardboard was from the sensor and the sensor's reading. I compiled all of this data into a Google Sheet. I then converted the inches to millimeters and put the values into a graph.</p>
-		<div style="background-color: #AAC7D8; text-align: center">
+		<div style="text-align: center">
 			<img style="width: 45%" src="./Module_06 Images/IMG_0485.JPG" alt="no sensor evaluations for you"</img>
 		</div>
-		<div style="background-color: #DFEBF6; text-align: center">
+		<div style="text-align: center">
 			<img style="width: 50%" src="./Module_06 Images/TimeofFlight_Testing.png" alt="you gotta believe me I have data"</img>
 		</div>
 
@@ -100,7 +152,7 @@ Serial.println(" mm");
 			</tr>
 		</table>
 		<p>I first tested the sensor without attaching a motor. The code I used was the provided code, except I changed the N_samples from 100 to 2000 to slow it down. I then tested seven different angles of rotation with the top cylinder and recorded the values in Google Sheets, to which I then made an equivalent graph. Each value includes my hand in contact with the alligator clip, as the values jumped up by about 100000 when I removed my hand.</p>
-		<div style="background-color: #DFEBF6; text-align: center">
+		<div style="text-align: center">
 			<img style="width: 50%" src="./Module_06 Images/Capacitor_Testing.png" alt="imagine... dragons."</img>
 		</div>
 		<p>Once I had the values, I then attached the servo motor and tried to, intitially, map the values of the capacitor to the position values of the servo. However, I learned that you cannot map a long value that doesn't have a maximum or minimum to something that does. What I ended up doing instead was to set a range using "less than" and "greater than" signs. The first few times I tried doing this, it did not work. The reason, I found, was because when I had copied the code, I had excluded the "result" function as I did not see it necessary. However, I learned that the purpose of this function was to set a value to the function as "tx_rx" was an algorithm. Put simply, "result" allowed those values to be evaluated.</p>
@@ -239,7 +291,12 @@ void loop() {
 				</td>
 			</tr>
 		</table>
-
 	</div>
 </body>
+
+
+
+
+
+
 </html>

@@ -1,83 +1,135 @@
 <!DOCTYPE html>
 <html>
 
-<!-- This is Module 4 -->
-<title>Microcontroller Programming - S-12</title>
+<title>Module 04</title>
 
-<!-- Hyperlink and Paragraph Styling -->
 <style>
-	a:link {
- 	 color: #FFFFFF;
- 	 background-color: transparent;
- 	 text-decoration: none;
-	}
+  .nav_elements {
+    font-family: 'Courier New';
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+  }
+  .weektext {
+    font-family: 'Courier New';
+    font-size: 60px;
+    color: #FFFFFF;
+  }
+  .moduletext {
+    font-family: 'Courier New';
+    font-size: 40px;
+    color: #FFFFFF;
+  }
+  .nav_button {
+    width: 2%;
+    color: #FFFFFF;
+    font-family: 'Courier New';
+    font-size: 16px
+    transition: all 0.2s;
+  }
 
-	a:visited {
-  	color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
-	}
+  .nav_button:hover {
+    background-image: linear-gradient(#BEC0C2, #A1A2A3);
+    transform: scale(1.05);
+    transition: all 0.2s;
+  }
+  h1 {
+    font-family: 'Courier New';
+    font-size: 40px;
+  }
+  h2{
+    font-family: 'Courier New';
+    font-size: 30px;
+  }
+  h3 {
+    font-family: 'Courier New';
+    font-size: 23px;
+  }
+  p {
+    font-family: 'Courier New';
+    font-size: 17px;
+  }
+  a {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
 
-	a:hover {
-  	color: #D2DCE6;
-  	background-color: transparent;
-  	text-decoration: none;
-	}
+  a:visited {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
 
-	a:active {
- 	 color: #FFFFFF;
-  	background-color: transparent;
-  	text-decoration: none;
-	}
+  .download_button {
+    font-size: 17px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 0px solid;
+    background-image: linear-gradient(#FBBCC8, #F493A7);
+    transition: all 0.2s;
+  }
 
-	p {
-		font-size: 120%;
-	}
-</style>  
+  .download_button:hover {
+    transform: scale(1.05);
+    transition: all 0.2s;
+  }
+</style>
 
-<nav>
-	<table style="width: 100%">
-	<tr>
-		<td style="background-color: #44576D; padding-left: 1%; text-align: left">
-			<h1><a href="./index.html">Introduction to Digital Fabrication</a></h1>
-		</td>
-		<td style="background-color: #44576D; text-align: center">
-			<h2><a href="./about.html">About Me</a></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="background-color: #768A96; padding-left: 2%; text-align: left">
-			<h3 style="color: #FFFFFF">PHYS S-12 Summer 2025 || Canden Barnett</h3>
-		</td>
-		<td style="width: 12%; height: 5%; background: linear-gradient(to top left, transparent 0%, transparent 50%, #768A96 50%, #768A96 100%);"
-		</td>
-	</tr>
-	</table>
-	<br>
+<nav style="height: 100vh; width: 30%; position: fixed; left: 0; top: 0; z-index: 99; overflow: hidden">
+  <div style="height: 100%; width: 100%; padding-left: 2%; padding-right: 2%; background-image: linear-gradient(#1267E7, #082C63)">
+    <br><br>
+    <p class="nav_elements" style="margin-right: 5%">Introduction to Digital Fabrication</p>
+    <div style="text-align: center; margin-right: 5%">
+      <table style="width: 100%; margin-left: auto; margin-right: auto">
+        <tr>
+          <td class="nav_button">
+            <a href="index.html">
+              <div>
+                <p>Home</p>
+              </div>
+            </a>
+          </td>
+          <td class="nav_button">
+          <a href="about.html">
+            <div>
+              <p>About</p>
+            </div>
+          </a>
+          </td>
+          <td class="nav_button">
+            <p>Final Project</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p class="weektext">Microcontroller Programming</p>
+    <p class="moduletext">Week 2</p>
+  </div>  
 </nav>
 
-<body style= "background-image: url(./Images/white-background.jpg); overflow-x: hidden">
-	<div style="margin-left: 10%; margin-right: 10%; padding-top: 1%; padding-bottom: 1%; padding-left: 2%; padding-right: 2%; background-color: #FFFFFF">
-		<h1 style="text-align: center"><u>Assignments</u></h1>
+<body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
+  <div style="margin-left: 32%; padding-right: 2%">
+    <h1 style="text-align: center">Assignments</h1>
 
-		<h2>Program the Microcontroller</h2>
-		<p>For this assignment, I opted to gain a head start on my final project, or at least familiarity with it. I decided on developing the <a style="color: #000000" href="module_01.html"><u>one handed keyboard/mouse.</u></a> Since that project requires a good number of buttons, about 10, I wanted to figure out how to map those buttons to letters now rather than later. That way I could spend more time focusing on how to create the shell and circuits for the mouse/keyboard rather than the programming. Though I had doubts about my ability to do so, I wanted to see if I could get the majority of the chorded layout of the keyboard done beforehand, so I began programming eight buttons into a left handed artsey keybaord.. I referred to the left handed <a style="color: #000000" href="https://artsey.io/"><u>ARTSEY Layout</u></a> when programming them.</p>
-		<table style="width: 70%; margin-left: auto; margin-right: auto">
-			<tr>
-				<td>
-					<img style="width: 100%" src="./Images/IMG_0436.JPG" alt="no keyboard"</img>
-				</td>
-				<td>
-					<img style="width: 100%" src="./Images/IMG_0437.JPG" alt="no keyboard part 2"</img>
-				</td>
-			</tr>
-			<tr>
-				<td style="colspan: 2">
-					<img style="width: 100%; padding-left: 50%; padding-right: 50%" src="./Images/Screenshot (19).png" alt="fix me"</img>
-				</td>
-			</tr>
-		</table>
-		<p>To make the code much simpler to formulate, I separated the chords into classes. This will also allow for easy additions later on. The only downside to writing the code this way was that it took an hour to learn.</p>
+    <h2>Program the Microcontroller</h2>
+    <p>For this assignment, I opted to gain a head start on my final project, or at least familiarity with it. I decided on developing the <a style="color: #000000" href="module_01.html"><u>one handed keyboard/mouse.</u></a> Since that project requires a good number of buttons, about 10, I wanted to figure out how to map those buttons to letters now rather than later. That way I could spend more time focusing on how to create the shell and circuits for the mouse/keyboard rather than the programming. Though I had doubts about my ability to do so, I wanted to see if I could get the majority of the chorded layout of the keyboard done beforehand, so I began programming eight buttons into a left handed artsey keybaord.. I referred to the left handed <a style="color: #000000" href="https://artsey.io/"><u>ARTSEY Layout</u></a> when programming them.</p>
+    <table style="width: 70%; margin-left: auto; margin-right: auto">
+      <tr>
+        <td>
+          <img style="width: 100%" src="./Images/IMG_0436.JPG" alt="no keyboard"</img>
+        </td>
+        <td>
+          <img style="width: 100%" src="./Images/IMG_0437.JPG" alt="no keyboard part 2"</img>
+        </td>
+      </tr>
+      <tr>
+        <td style="colspan: 2">
+          <img style="width: 100%; padding-left: 50%; padding-right: 50%" src="./Images/Screenshot (19).png" alt="fix me"</img>
+        </td>
+      </tr>
+    </table>
+    <p>To make the code much simpler to formulate, I separated the chords into classes. This will also allow for easy additions later on. The only downside to writing the code this way was that it took an hour to learn.</p>
 <div style="background-color: #E6E6E6; width: 100%">
 <pre><code style="font-size: 105%">
 class Chord_1 {
@@ -129,9 +181,9 @@ class Chord_2 {
 //and so forth up to Chord_4
 </code></pre>
 </div>
-		<p>I then assigned pin numbers and letters to the different chords.</p>
-		<div style="background-color: #E6E6E6; width: 100%">
-			<pre><code style="font-size: 105%">
+    <p>I then assigned pin numbers and letters to the different chords.</p>
+    <div style="background-color: #E6E6E6; width: 100%">
+      <pre><code style="font-size: 105%">
 Chord_1 a1(D0, s);
 Chord_1 a2(D1, t);
 Chord_1 a3(D2, r);
@@ -161,16 +213,16 @@ Chord_3 c5(D0, D1, D3, q);
 Chord_3 c6(D0, D1, D2, x);
 
 Chord_4 d1(D0, D1, D2, D3, z);
-			</code></pre>
-		</div>
-		<p>However, it appeared I did something wrong in defining the letters. The error messages explained it was the problem, but according to my understanding at the time, since those were characaters, and I had set that part of the function to be meant for characters, it seemed completely correct to me.</p>
-		<div style="text-align: center">
-			<img style="width: 70%" src="./Images/Screenshot (18).png" alt="2x, x = error"</img>
-		</div>
-		<p>I did some further research on the char variable and found that characters require '' around them. I added this to the code and it verified without any errors.</p>
-		<p>At this point, I felt confident in the code working. However, I had a fear that chords would overlap: pressing two keys for a Chord_2 will simultaneously produce the Chord_1 equivalents of each respective key. Before testing the code on the keyboard, I decided to try and prevent this error in advance. I figured I could add more AND conditions that would prevent the button from pressing unless only those specific keys, no others, were pressed. The result was a lot of variables and a suspicion that there was an easier way, but I feel this may work as a good format that allows for more key assignments later on.</p>
-		<div style="background-color: #E6E6E6">
-			<pre><code style="font-size: 105%">
+      </code></pre>
+    </div>
+    <p>However, it appeared I did something wrong in defining the letters. The error messages explained it was the problem, but according to my understanding at the time, since those were characaters, and I had set that part of the function to be meant for characters, it seemed completely correct to me.</p>
+    <div style="text-align: center">
+      <img style="width: 70%" src="./Images/Screenshot (18).png" alt="2x, x = error"</img>
+    </div>
+    <p>I did some further research on the char variable and found that characters require '' around them. I added this to the code and it verified without any errors.</p>
+    <p>At this point, I felt confident in the code working. However, I had a fear that chords would overlap: pressing two keys for a Chord_2 will simultaneously produce the Chord_1 equivalents of each respective key. Before testing the code on the keyboard, I decided to try and prevent this error in advance. I figured I could add more AND conditions that would prevent the button from pressing unless only those specific keys, no others, were pressed. The result was a lot of variables and a suspicion that there was an easier way, but I feel this may work as a good format that allows for more key assignments later on.</p>
+    <div style="background-color: #E6E6E6">
+      <pre><code style="font-size: 105%">
 //Classes are now behomeths
 class Chord_1 {
   int buttonpin;
@@ -220,22 +272,22 @@ class Chord_1 {
 
 //and the instances are sentences
 Chord_1 a1(D0, 's', D1, D2, D3, D4, D5, D6, D7);
-			</code></pre>
-		</div>
-		<p>After uploading the code to the microcontroller, I soon discovered that none of the buttons did anything. I tested for voltage and current with the multimeter to make sure that none of the electrical components were off. The problem lied in my code. Bobby revealed to me that I had been trying to read the button instead of its value. The new if statements followed this format:</p>
-		<div style="background-color: #E6E6E6">
-			<pre><code style="font-size: 105%">
+      </code></pre>
+    </div>
+    <p>After uploading the code to the microcontroller, I soon discovered that none of the buttons did anything. I tested for voltage and current with the multimeter to make sure that none of the electrical components were off. The problem lied in my code. Bobby revealed to me that I had been trying to read the button instead of its value. The new if statements followed this format:</p>
+    <div style="background-color: #E6E6E6">
+      <pre><code style="font-size: 105%">
 void Update() {
 
     if((digitalRead(buttonpin) == LOW) && (digitalRead(extra) == HIGH) && (digitalRead(extra1) == HIGH) && (digitalRead(extra2) == HIGH) && (digitalRead(extra3) == HIGH) && (digitalRead(extra4) == HIGH) && (digitalRead(extra5) == HIGH) && (digitalRead(extra6) == HIGH)) {
       Serial.println(letter);
     }
   }
-			</code></pre>
-		</div>
-		<p>After Bobby's help, I was finally able to type a single character. For whatever reason, the code only allowed for a single button press, no longer responding to any clicks past the first one. Multiple occurences was another problem, but I pushed that off to focus only on getting the keystrokes to work. However, it turns out that they were the same problem. The keystrokes were working, but I could not tell because there were so many extra instances of characters from a single press. To fix this, I added a delay system that prevented the code from repeating immediately.</p>
-		<div style="background-color: #E6E6E6">
-			<pre><code style="font-size: 105%">
+      </code></pre>
+    </div>
+    <p>After Bobby's help, I was finally able to type a single character. For whatever reason, the code only allowed for a single button press, no longer responding to any clicks past the first one. Multiple occurences was another problem, but I pushed that off to focus only on getting the keystrokes to work. However, it turns out that they were the same problem. The keystrokes were working, but I could not tell because there were so many extra instances of characters from a single press. To fix this, I added a delay system that prevented the code from repeating immediately.</p>
+    <div style="background-color: #E6E6E6">
+      <pre><code style="font-size: 105%">
 //Variables
 long initialDelay;
 long secondaryDelay;
@@ -243,7 +295,7 @@ unsigned long previousMillis;
 
 //Defining Variables
 initialDelay = 100;
-	secondaryDelay = 150;
+  secondaryDelay = 150;
 previousMillis = 0;
 
 //Defining currentMillis
@@ -252,11 +304,11 @@ unsigned long currentMillis = millis();
 //Avoiding the delay tag. Implemented into the if statement of the Update loop.
 (currentMillis - previousMillis >= initialDelay)
 (currentMillis - previousMillis >= secondaryDelay)
-			</code></pre>
-		</div>
-		<p>The reason for the separate delays is because I was experimenting with trying to solve another problem: pressing more than one key resulted in zero responses. My hypothesis is that the first "if" statement is looping and preventing any of the chords from running. So for the assignment, I present a modest attempt at a keyboard. I will be back during final project construction to fix this issue.</p>
-		<div style="background-color: #E6E6E6">
-			<pre><code style="font-size: 105%">
+      </code></pre>
+    </div>
+    <p>The reason for the separate delays is because I was experimenting with trying to solve another problem: pressing more than one key resulted in zero responses. My hypothesis is that the first "if" statement is looping and preventing any of the chords from running. So for the assignment, I present a modest attempt at a keyboard. I will be back during final project construction to fix this issue.</p>
+    <div style="background-color: #E6E6E6">
+      <pre><code style="font-size: 105%">
 class Chord_1 {
   int buttonpin;
 
@@ -341,14 +393,14 @@ void loop() {
   a7.Update();
   a8.Update();
 }
-			</code></pre>
-		</div>
-		<div style="text-align: center">
-			<video width: 50px height: 50px controls>
-				<source src="./Images/IMG_0441.mov">
-				womp womp pal
-			</video>
-		</div>
-	</div>
+      </code></pre>
+    </div>
+    <div style="text-align: center">
+      <video width="35%" controls>
+        <source src="./Images/IMG_0441.mov">
+        womp womp pal
+      </video>
+    </div>
+  </div>
 </body>
 </html>
