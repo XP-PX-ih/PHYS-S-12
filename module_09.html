@@ -103,23 +103,30 @@
 				</tr>
 			</table>
 		</div>
-		<p class="weektext">Module Title</p>
-		<p class="moduletext">Week 'X'</p>
+		<p class="weektext">Radio, WiFi, Blutooth (IoT)</p>
+		<p class="moduletext">Week 5</p>
 	</div>	
 </nav>
 
 <body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
 	<div style="margin-left: 32%; padding-right: 2%">
-		<h1>Heading 1</h1>
-		<h2>Heading 2</h2>
-		<h3>Heading 3</h3>
-		<p>Paragraph<p>
-</body>
+		<h1 style="text-align: center">Assignments</h1>
 
-Documentation Rambling:
-I worked with Viraj and Mazan. We develeoped a wireless tic tac toe game with two different controllers and a gambling site. One controller was a single joystick that pressed down. The other controller had 9 buttons, one for each square on the board. I soldered the buttons to a protoboard while Mazan designed a casing for it.
-
-Code to Test the Buttons:
+		<h2>Remote Connection</h2>
+		<p>Our group consisted of myself, <a style="color: #000000" href="https://virajsahi.github.io/Digital_fabrication/index.html"><u>Viraj,</u></a> and <a style="color: #000000" href="https://fulcrum-08.github.io/PS70/index.html"><u>Mazen.</u></a> Mazen had the idea to create a game console, to which we decided on tic-tac-toe. Viraj decided we should add a spectating option which allow for users to hedge bets on who will win, and have the system rank those with the most successful guesses. The project required three microntrollers: one for each controller and one to act as the server. Bobby provided us NodeMCU ESP32Ss. We went with two different controller styles because Viraj and Mazen could not decide on the better option. Mazen and Viraj worked on connecting a thumbstick to one of the microcontrollers while I soldered buttons for the other controller. To make cable management slightly easier, I connected all of the buttons to a single ground wire. The other two, since they had worked with them, connected an OLED display to each microcontroller through I2C.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_09 Images/IMG_0552.JPG" alt="my baby"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_09 Images/IMG_0553.JPG" alt="stay away"</img>
+				</td>
+			</tr>
+		</table>
+		<p>Before trying to fully set up the button controller, I connected it to my own microcontroller and ran a test code to make sure that everything had been soldered correctly. Luckily, everything was correct.</p>
+		<div style="background-color: #E6E6E6">
+		<pre><code style="background-color: #E6E6E6">
 int pin1 = 23;
 int pin2 = 22;
 int pin3 = 27;
@@ -186,9 +193,1319 @@ void loop() {
     previousMillis = currentMillis;
   }
 }
+		</code></pre>
+		</div>
+		<p>Viraj and Mazen worked on setting up the thumbstick as I soldered. Initially, there were a few problems especially with the thumbstick's button pin, whichwasn't registering any input despite numerous iterations of code. Eventually, they mnanaged to set it up with the OLED screen. Here's the code:</p>
+		<div style="background-color: #E6E6E6">
+		<pre><code style="background-color: #E6E6E6">
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 
-I began work on Firebase for the website.
-https://www.youtube.com/watch?v=9kRgVxULbag
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET    -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+// Joystick pins
+const int joyXPin = 36;  // horizontal
+const int joyYPin = 39;  // vertical
+const int btnPin   = 32; // external button (with pull-up)
 
+// Game state
+int cursorX = 0;
+int cursorY = 0;
+char board[3][3]; // ' ' or 'X'
+
+// Button state
+bool buttonPressed = false;
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(btnPin, INPUT_PULLUP);  // enable internal pull-up
+
+  // Initialize OLED
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("OLED init failed");
+    while (1);
+  }
+
+  display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
+  display.setTextSize(1);
+  display.display();
+
+  // Clear game board
+  for (int y = 0; y < 3; y++)
+    for (int x = 0; x < 3; x++)
+      board[y][x] = ' ';
+}
+
+void loop() {
+  handleJoystick();
+  handleButton();
+  drawBoard();
+  delay(50);
+}
+
+void handleJoystick() {
+  static unsigned long lastMove = 0;
+  unsigned long now = millis();
+
+  int xVal = analogRead(joyXPin);
+  int yVal = analogRead(joyYPin);
+
+  if (now - lastMove > 200) {
+    if (xVal < 1000) {
+      cursorX = max(0, cursorX - 1);
+      lastMove = now;
+    } else if (xVal > 3000) {
+      cursorX = min(2, cursorX + 1);
+      lastMove = now;
+    }
+
+    if (yVal < 1000) {
+      cursorY = max(0, cursorY - 1);
+      lastMove = now;
+    } else if (yVal > 3000) {
+      cursorY = min(2, cursorY + 1);
+      lastMove = now;
+    }
+  }
+}
+
+void handleButton() {
+  int reading = digitalRead(btnPin);
+
+  if (reading == LOW && !buttonPressed) {
+    buttonPressed = true;
+
+    // Place X only if the selected cell is empty
+    if (board[cursorY][cursorX] == ' ') {
+      board[cursorY][cursorX] = 'X';
+    }
+  }
+  else if (reading == HIGH) {
+    buttonPressed = false;
+  }
+}
+
+void drawBoard() {
+  display.clearDisplay();
+
+  // Draw grid lines
+  for (int i = 1; i < 3; i++) {
+    display.drawLine(i * 42, 0, i * 42, SCREEN_HEIGHT, SSD1306_WHITE);
+    display.drawLine(0, i * 21, SCREEN_WIDTH, i * 21, SSD1306_WHITE);
+  }
+
+  // Draw Xs
+  for (int y = 0; y < 3; y++) {
+    for (int x = 0; x < 3; x++) {
+      if (board[y][x] == 'X') {
+        int cx = x * 42 + 10;
+        int cy = y * 21 + 5;
+        display.setCursor(cx, cy);
+        display.setTextSize(2);
+        display.print("X");
+      }
+    }
+  }
+
+  // Highlight selected square
+  int boxX = cursorX * 42;
+  int boxY = cursorY * 21;
+  display.drawRect(boxX, boxY, 42, 21, SSD1306_WHITE);
+
+  display.display();
+}
+		</code></pre>
+		</div>
+		<div style="text-align: center">
+      <video width="60%" controls>
+        <source src="./Module_09 Images/VID_20250727_171912520.mp4">
+        womp womp pal
+      </video>
+    </div>
+		<p>We then connected the buttons to the OLED board. We consistently ran into issues with connecting the keyboard. The problem was the pin numbers we had entered into the code, matching up to the wrong buttons. We managed to fix it without having to do too much with the code by simply rewiring the board. Here's the working code:</p>
+		<div style="background-color: #E6E6E6">
+		<pre><code style="background-color: #E6E6E6">
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// Button pins (adjust to your wiring)
+const int buttonPins[9] = {14, 27, 26, 25, 33, 32, 2, 4, 16};
+
+// Game state: 0 = empty, 1 = O (only one player for now)
+int gameBoard[9] = {0};
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Initialize buttons
+  for (int i = 0; i < 9; i++) {
+    pinMode(buttonPins[i], INPUT_PULLUP);  // Assuming grounded buttons
+  }
+
+  // Initialize OLED
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    while (true);
+  }
+
+  display.clearDisplay();
+  drawBoard();
+  display.display();
+}
+
+void loop() {
+  for (int i = 0; i < 9; i++) {
+    if (digitalRead(buttonPins[i]) == LOW) {
+      delay(100);  // simple debounce
+
+      if (gameBoard[i] == 0) {
+        gameBoard[i] = 1;  // Mark with O
+        drawOAtIndex(i);
+        display.display();
+      }
+    }
+  }
+}
+
+void drawBoard() {
+  display.clearDisplay();
+  // Vertical lines
+  display.drawLine(43, 0, 43, 64, WHITE);
+  display.drawLine(85, 0, 85, 64, WHITE);
+  // Horizontal lines
+  display.drawLine(0, 21, 128, 21, WHITE);
+  display.drawLine(0, 43, 128, 43, WHITE);
+}
+
+void drawOAtIndex(int index) {
+  int col = index % 3;
+  int row = index / 3;
+
+  int centerX = col * 43 + 21;
+  int centerY = row * 21 + 10;
+
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(centerX - 6, centerY - 8);
+  display.print("O");
+}
+		</code></pre>
+		</div>
+		<div style="text-align: center">
+      <video width="60%" controls>
+        <source src="./Module_09 Images/VID_20250727_171719589.mp4">
+        womp womp pal
+      </video>
+    </div>
+		<p>I started work on Firebase, trying to figure out how to make a database that would allow for the controllers to send and receive information while also allowing outside users to cast bets. We gave up on the idea, however, once we learned that we could create the ip address website instead. We instead worked on establishing a connection between the microcontrollers. We got them to communicate through the server microcontroller and managed to play a game of tic-tac-toe with ESP-NOW. Mazen then printed a casing for the controllers while Viraj printed button caps for one of them.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<iframe src="https://muwci14.autodesk360.com/shares/public/SH286ddQT78850c0d8a4f63849e2f7ba6650?mode=embed" width="100%" height="400px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://myg338981.autodesk360.com/shares/public/SH30dd5QT870c25f12fc902ce18dbe075a88?mode=embed" width="100%" height="400px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+			</tr>
+     </table>
+		
+		<p>Viraj and Mazen managed to create the website which allowed for spectating of the game, but it required significant effort because we wanted the games to continue without having to manually reset after each win/tie. We had to switch to websockets because there were too many problems with ESP-NOW. We finally managed to stabilize the program and make it so that users could see the game and its results in real time. Below iare the codes for both controllers and the server, and a video of our product:</p>
+		<div style="text-align: center">
+			<video width="60%" controls>
+   			<source src="./Module_09 Images/79167e55-2292-4ee2-87f8-69c4a8032df5.mp4">
+    		womp womp pal
+ 			</video>
+ 		</div>
+ 		<h3>Button Code</h3>
+ 		<div style="background-color: #E6E6E6">
+ 		<pre><code style="background-color: #E6E6E6">
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <WiFi.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+const int buttonPins[9] = {14, 27, 26, 25, 33, 32, 2, 4, 16};
+
+const char* ssid = "MAKERSPACE";
+const char* password = "12345678";
+const IPAddress serverIP(192, 168, 0, 218);
+const uint16_t serverPort = 3333;
+
+WiFiClient client;
+
+char board[9];
+int playerId = 0;
+int currentTurn = 0;
+
+bool buttonPressed = false;
+int lastPressedIndex = -1;
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+
+  for (int i = 0; i < 9; i++) {
+    pinMode(buttonPins[i], INPUT_PULLUP);
+  }
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("OLED init failed");
+    while (1);
+  }
+  display.clearDisplay();
+  display.display();
+
+  Serial.print("Connecting to WiFi ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nConnected to WiFi");
+
+  Serial.print("Connecting to server...");
+  while (!client.connect(serverIP, serverPort)) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nConnected to server");
+
+  for (int i = 0; i < 9; i++) board[i] = ' ';
+}
+
+void loop() {
+  checkButtons();
+  receiveServerMessages();
+  drawBoard();
+  delay(50);
+}
+
+void checkButtons() {
+  for (int i = 0; i < 9; i++) {
+    int reading = digitalRead(buttonPins[i]);
+
+    if (reading == LOW && !buttonPressed) {
+      buttonPressed = true;
+      lastPressedIndex = i;
+
+      if (playerId == 0) {
+        Serial.println("Player ID not assigned yet");
+        return;
+      }
+
+      if (currentTurn != playerId) {
+        Serial.println("Not your turn");
+        return;
+      }
+
+      if (board[i] == ' ') {
+        String moveMsg = "MOVE," + String(i);
+        client.println(moveMsg);
+        Serial.print("Sent move: ");
+        Serial.println(moveMsg);
+      } else {
+        Serial.println("Cell already occupied");
+      }
+    } else if (reading == HIGH && buttonPressed && lastPressedIndex == i) {
+      buttonPressed = false;
+      lastPressedIndex = -1;
+    }
+  }
+}
+
+void receiveServerMessages() {
+  while (client.available()) {
+    String msg = client.readStringUntil('\n');
+    msg.trim();
+    if (msg.length() > 0) {
+      Serial.print("Received: ");
+      Serial.println(msg);
+      parseServerMessage(msg);
+    }
+  }
+}
+
+void parseServerMessage(const String &msg) {
+  if (msg.startsWith("INIT,")) {
+    int firstComma = msg.indexOf(',');
+    int secondComma = msg.indexOf(',', firstComma + 1);
+    int thirdComma = msg.indexOf(',', secondComma + 1);
+
+    playerId = msg.substring(firstComma + 1, secondComma).toInt();
+    String boardStr = msg.substring(secondComma + 1, thirdComma);
+    currentTurn = msg.substring(thirdComma + 1).toInt();
+
+    for (int i = 0; i < 9; i++) {
+      board[i] = boardStr.charAt(i);
+    }
+
+    Serial.print("Assigned Player ID: ");
+    Serial.println(playerId);
+    Serial.print("Current turn: ");
+    Serial.println(currentTurn);
+  }
+  else if (msg.startsWith("MOVE,")) {
+    int firstComma = msg.indexOf(',');
+    int secondComma = msg.indexOf(',', firstComma + 1);
+
+    int pId = msg.substring(firstComma + 1, secondComma).toInt();
+    int idx = msg.substring(secondComma + 1).toInt();
+
+    board[idx] = (pId == 1) ? 'X' : 'O';
+  }
+  else if (msg.startsWith("TURN,")) {
+    currentTurn = msg.substring(5).toInt();
+  }
+  else if (msg.startsWith("WIN,")) {
+    int firstComma = msg.indexOf(',');
+    int secondComma = msg.indexOf(',', firstComma + 1);
+    int thirdComma = msg.indexOf(',', secondComma + 1);
+
+    int winner = msg.substring(firstComma + 1, secondComma).toInt();
+    int startCell = msg.substring(secondComma + 1, thirdComma).toInt();
+    int endCell = msg.substring(thirdComma + 1).toInt();
+
+    Serial.printf("Player %d wins! Line from %d to %d\n", winner, startCell, endCell);
+    showWinningLine(startCell, endCell);
+  }
+  else if (msg == "TIE") {
+    Serial.println("Game is a tie!");
+    delay(1000);
+
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(40, SCREEN_HEIGHT / 2 - 10);
+    display.print("Tie!");
+    display.display();
+  }
+}
+
+void drawBoard() {
+  display.clearDisplay();
+
+  // Draw grid lines
+  display.drawLine(43, 0, 43, SCREEN_HEIGHT, SSD1306_WHITE);
+  display.drawLine(85, 0, 85, SCREEN_HEIGHT, SSD1306_WHITE);
+  display.drawLine(0, 21, SCREEN_WIDTH, 21, SSD1306_WHITE);
+  display.drawLine(0, 43, SCREEN_WIDTH, 43, SSD1306_WHITE);
+
+  // Draw X and O
+  for (int i = 0; i < 9; i++) {
+    if (board[i] == 'X' || board[i] == 'O') {
+      int col = i % 3;
+      int row = i / 3;
+      int x = col * 43 + 21 - 6;
+      int y = row * 21 + 10 - 8;
+
+      display.setCursor(x, y);
+      display.setTextSize(2);
+      display.setTextColor(SSD1306_WHITE);
+      display.print(board[i]);
+    }
+  }
+
+  display.display();
+}
+
+void drawBoardGridOnly() {
+  display.drawLine(43, 0, 43, SCREEN_HEIGHT, SSD1306_WHITE);
+  display.drawLine(85, 0, 85, SCREEN_HEIGHT, SSD1306_WHITE);
+  display.drawLine(0, 21, SCREEN_WIDTH, 21, SSD1306_WHITE);
+  display.drawLine(0, 43, SCREEN_WIDTH, 43, SSD1306_WHITE);
+}
+
+void drawThickLine(int x0, int y0, int x1, int y1, int thickness) {
+  for (int i = -thickness / 2; i <= thickness / 2; i++) {
+    if (x0 == x1) {
+      display.drawLine(x0 + i, y0, x1 + i, y1, SSD1306_WHITE);
+    } else if (y0 == y1) {
+      display.drawLine(x0, y0 + i, x1, y1 + i, SSD1306_WHITE);
+    } else {
+      display.drawLine(x0 + i, y0 + i, x1 + i, y1 + i, SSD1306_WHITE);
+    }
+  }
+}
+
+void showWinningLine(int startCell, int endCell) {
+  int startX = (startCell % 3) * 43 + 21;
+  int startY = (startCell / 3) * 21 + 10;
+  int endX = (endCell % 3) * 43 + 21;
+  int endY = (endCell / 3) * 21 + 10;
+
+  int deltaX = endX - startX;
+  int deltaY = endY - startY;
+
+  float length = sqrt(deltaX * deltaX + deltaY * deltaY);
+  float extendX = (deltaX / length) * 10;
+  float extendY = (deltaY / length) * 10;
+
+  int extStartX = startX - (int)extendX;
+  int extStartY = startY - (int)extendY;
+  int extEndX = endX + (int)extendX;
+  int extEndY = endY + (int)extendY;
+
+  display.clearDisplay();
+  drawBoardGridOnly();
+
+  drawThickLine(extStartX, extStartY, extEndX, extEndY, 5);
+
+  // Redraw X and O on board
+  for (int i = 0; i < 9; i++) {
+    if (board[i] == 'X' || board[i] == 'O') {
+      int col = i % 3;
+      int row = i / 3;
+      int x = col * 43 + 21 - 6;
+      int y = row * 21 + 10 - 8;
+
+      display.setCursor(x, y);
+      display.setTextSize(2);
+      display.setTextColor(SSD1306_WHITE);
+      display.print(board[i]);
+    }
+  }
+  display.display();
+
+  delay(3000);
+
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(10, SCREEN_HEIGHT / 2 - 10);
+  display.print("Player ");
+  display.print((board[startCell] == 'X') ? "1" : "2");
+  display.print(" wins!");
+  display.display();
+  delay(3000);
+}
+		</code></pre>
+		</div>
+		<h3>Thumbstick Code</h3>
+		<div style="background-color: #E6E6E6">
+		<pre><code style="background-color: #E6E6E6">
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <WiFi.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// Joystick pins
+const int joyXPin = 36;  // horizontal
+const int joyYPin = 39;  // vertical
+const int btnPin   = 32; // external button (with pull-up)
+
+// WiFi & server info
+const char* ssid = "MAKERSPACE";
+const char* password = "12345678";
+const IPAddress serverIP(192, 168, 0, 218);
+const uint16_t serverPort = 3333;
+
+WiFiClient client;
+
+int cursorX = 0;
+int cursorY = 0;
+char board[9];
+int playerId = 0;
+int currentTurn = 0;
+
+bool buttonPressed = false;
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+
+  pinMode(btnPin, INPUT_PULLUP);
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("OLED init failed");
+    while (1);
+  }
+  display.clearDisplay();
+  display.display();
+
+  Serial.print("Connecting to WiFi ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nConnected to WiFi");
+
+  Serial.print("Connecting to server...");
+  while (!client.connect(serverIP, serverPort)) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nConnected to server");
+
+  for (int i = 0; i < 9; i++) board[i] = ' ';
+}
+
+void loop() {
+  handleJoystick();
+  handleButton();
+  receiveServerMessages();
+  drawBoard();
+  delay(50);
+}
+
+void handleJoystick() {
+  static unsigned long lastMove = 0;
+  unsigned long now = millis();
+
+  int xVal = analogRead(joyXPin);
+  int yVal = analogRead(joyYPin);
+
+  if (now - lastMove > 200) {
+    if (xVal < 1000) {
+      cursorX = max(0, cursorX - 1);
+      lastMove = now;
+    } else if (xVal > 3000) {
+      cursorX = min(2, cursorX + 1);
+      lastMove = now;
+    }
+
+    if (yVal < 1000) {
+      cursorY = max(0, cursorY - 1);
+      lastMove = now;
+    } else if (yVal > 3000) {
+      cursorY = min(2, cursorY + 1);
+      lastMove = now;
+    }
+  }
+}
+
+void handleButton() {
+  int reading = digitalRead(btnPin);
+
+  if (reading == LOW && !buttonPressed) {
+    buttonPressed = true;
+
+    if (playerId == 0) {
+      Serial.println("Player ID not assigned yet");
+      return;
+    }
+
+    if (currentTurn != playerId) {
+      Serial.println("Not your turn");
+      return;
+    }
+
+    int idx = cursorY * 3 + cursorX;
+    if (board[idx] == ' ') {
+      String moveMsg = "MOVE," + String(idx);
+      client.println(moveMsg);
+      Serial.print("Sent move: ");
+      Serial.println(moveMsg);
+    } else {
+      Serial.println("Cell occupied");
+    }
+  } else if (reading == HIGH) {
+    buttonPressed = false;
+  }
+}
+
+void receiveServerMessages() {
+  while (client.available()) {
+    String msg = client.readStringUntil('\n');
+    msg.trim();
+    if (msg.length() > 0) {
+      Serial.print("Received: ");
+      Serial.println(msg);
+      parseServerMessage(msg);
+    }
+  }
+}
+
+void parseServerMessage(const String &msg) {
+  if (msg.startsWith("INIT,")) {
+    int firstComma = msg.indexOf(',');
+    int secondComma = msg.indexOf(',', firstComma + 1);
+    int thirdComma = msg.indexOf(',', secondComma + 1);
+
+    playerId = msg.substring(firstComma + 1, secondComma).toInt();
+    String boardStr = msg.substring(secondComma + 1, thirdComma);
+    currentTurn = msg.substring(thirdComma + 1).toInt();
+
+    for (int i = 0; i < 9; i++) {
+      board[i] = boardStr.charAt(i);
+    }
+
+    Serial.print("Assigned Player ID: ");
+    Serial.println(playerId);
+    Serial.print("Current turn: ");
+    Serial.println(currentTurn);
+  }
+  else if (msg.startsWith("MOVE,")) {
+    int firstComma = msg.indexOf(',');
+    int secondComma = msg.indexOf(',', firstComma + 1);
+
+    int pId = msg.substring(firstComma + 1, secondComma).toInt();
+    int idx = msg.substring(secondComma + 1).toInt();
+
+    board[idx] = (pId == 1) ? 'X' : 'O';
+  }
+  else if (msg.startsWith("TURN,")) {
+    currentTurn = msg.substring(5).toInt();
+  }
+  else if (msg.startsWith("WIN,")) {
+    int firstComma = msg.indexOf(',');
+    int secondComma = msg.indexOf(',', firstComma + 1);
+    int thirdComma = msg.indexOf(',', secondComma + 1);
+
+    int winner = msg.substring(firstComma + 1, secondComma).toInt();
+    int startCell = msg.substring(secondComma + 1, thirdComma).toInt();
+    int endCell = msg.substring(thirdComma + 1).toInt();
+
+    Serial.printf("Player %d wins! Line from %d to %d\n", winner, startCell, endCell);
+    showWinningLine(startCell, endCell);
+  }
+  else if (msg == "TIE") {
+    Serial.println("Game is a tie!");
+    delay(1000);  // wait 1 second
+
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(40, SCREEN_HEIGHT / 2 - 10);
+    display.print("Tie!");
+    display.display();
+  }
+}
+
+void drawBoard() {
+  display.clearDisplay();
+
+  // Draw grid lines
+  display.drawLine(43, 0, 43, SCREEN_HEIGHT, SSD1306_WHITE);
+  display.drawLine(85, 0, 85, SCREEN_HEIGHT, SSD1306_WHITE);
+  display.drawLine(0, 21, SCREEN_WIDTH, 21, SSD1306_WHITE);
+  display.drawLine(0, 43, SCREEN_WIDTH, 43, SSD1306_WHITE);
+
+  // Draw Xs and Os
+  for (int i = 0; i < 9; i++) {
+    if (board[i] == 'X' || board[i] == 'O') {
+      int col = i % 3;
+      int row = i / 3;
+      int x = col * 43 + 21 - 6;
+      int y = row * 21 + 10 - 8;
+
+      display.setCursor(x, y);
+      display.setTextSize(2);
+      display.setTextColor(SSD1306_WHITE);
+      display.print(board[i]);
+    }
+  }
+
+  // Highlight selected square
+  int boxX = cursorX * 43;
+  int boxY = cursorY * 21;
+  display.drawRect(boxX, boxY, 43, 21, SSD1306_WHITE);
+
+  display.display();
+}
+
+void drawBoardGridOnly() {
+  display.drawLine(43, 0, 43, SCREEN_HEIGHT, SSD1306_WHITE);
+  display.drawLine(85, 0, 85, SCREEN_HEIGHT, SSD1306_WHITE);
+  display.drawLine(0, 21, SCREEN_WIDTH, 21, SSD1306_WHITE);
+  display.drawLine(0, 43, SCREEN_WIDTH, 43, SSD1306_WHITE);
+}
+
+void drawThickLine(int x0, int y0, int x1, int y1, int thickness) {
+  for (int i = -thickness / 2; i <= thickness / 2; i++) {
+    if (x0 == x1) {
+      display.drawLine(x0 + i, y0, x1 + i, y1, SSD1306_WHITE);
+    } else if (y0 == y1) {
+      display.drawLine(x0, y0 + i, x1, y1 + i, SSD1306_WHITE);
+    } else {
+      display.drawLine(x0 + i, y0 + i, x1 + i, y1 + i, SSD1306_WHITE);
+    }
+  }
+}
+
+void showWinningLine(int startCell, int endCell) {
+  int startX = (startCell % 3) * 43 + 21;
+  int startY = (startCell / 3) * 21 + 10;
+  int endX = (endCell % 3) * 43 + 21;
+  int endY = (endCell / 3) * 21 + 10;
+
+  int deltaX = endX - startX;
+  int deltaY = endY - startY;
+
+  float length = sqrt(deltaX * deltaX + deltaY * deltaY);
+  float extendX = (deltaX / length) * 10;
+  float extendY = (deltaY / length) * 10;
+
+  int extStartX = startX - (int)extendX;
+  int extStartY = startY - (int)extendY;
+  int extEndX = endX + (int)extendX;
+  int extEndY = endY + (int)extendY;
+
+  display.clearDisplay();
+  drawBoardGridOnly();
+
+  drawThickLine(extStartX, extStartY, extEndX, extEndY, 5);
+
+  // Redraw X and O on board
+  for (int i = 0; i < 9; i++) {
+    if (board[i] == 'X' || board[i] == 'O') {
+      int col = i % 3;
+      int row = i / 3;
+      int x = col * 43 + 21 - 6;
+      int y = row * 21 + 10 - 8;
+
+      display.setCursor(x, y);
+      display.setTextSize(2);
+      display.setTextColor(SSD1306_WHITE);
+      display.print(board[i]);
+    }
+  }
+  display.display();
+
+  delay(3000);  // wait 3 seconds with the line visible
+
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(10, SCREEN_HEIGHT / 2 - 10);
+  display.print("Player ");
+  display.print((board[startCell] == 'X') ? "1" : "2");
+  display.print(" wins!");
+  display.display();
+  delay(3000);
+}
+		</code></pre>
+		</div>
+ 		<p>Afterwards, Viraj and Mazen created another level of interactivity for users. After a solid 4-5 hours of trial and error, we modified the server to allow users input their username (With guest options available), ask them to choose which player they think will win, stream the game as before, and generate a message telling them if their guess was right or wrong. The server saved each user's metadata in the form of a client ID and assigned them a baseline score of zero. Each correct guess added a point (+1) to their score, while an incorrect guess subtracted one (-1). Finally, the server displayed a leaderboard ranking the user by username in terms of points: users with scores of -3 or less were booted out of the game, and sent a message saying "You loose! Debt sucker!!!"</p>
+ 		<h3>Server Code</h3>
+ 		<div style="background-color: #E6E6E6">
+ 		<pre><code style="background-color: #E6E6E6">
+#include <WiFi.h>
+#include <WebServer.h>
+#include <WebSocketsServer.h>
+#include <map>               // for std::map
+#include <ArduinoJson.h>     // for JSON parsing
+
+// SoftAP credentials (for player clients)
+#define SERVER_SSID "TTT_Server"
+#define SERVER_PASS "password123"
+
+// STA credentials (for LAN spectators)
+const char* STA_SSID = "MAKERSPACE";
+const char* STA_PASS = "12345678";
+std::map<uint8_t, int> leaderboard;
+std::map<uint8_t, String> spectatorNames;
+
+// Add these:
+int player1Wins = 0;
+int player2Wins = 0;
+int player1Losses = 0;
+int player2Losses = 0;
+int ties = 0;
+// Ports
+#define SERVER_PORT 3333
+WiFiServer tcpServer(SERVER_PORT);
+WebServer httpServer(80);
+WebSocketsServer webSocket = WebSocketsServer(81);
+
+const int MAX_CLIENTS = 2;
+WiFiClient clients[MAX_CLIENTS];
+
+char board[9];  // ' ', 'X', 'O'
+int currentTurn = 1;
+
+const int wins[8][3] = {
+  {0,1,2}, {3,4,5}, {6,7,8}, {0,3,6}, {1,4,7}, {2,5,8}, {0,4,8}, {2,4,6}
+};
+
+// Track votes from each websocket client (key: client num, value: 1 or 2)
+std::map<uint8_t, int> votes;
+
+void sendInitState(WiFiClient &client, int playerId);
+void broadcastTCP(const String &msg);
+void broadcastWebSocket(const String &msg);
+int checkWin();
+bool checkTie();
+void handleMessage(int playerId, const String &msg);
+void resetGame();
+void handleWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length);
+void broadcastVoteRequest();
+void broadcastVoteResults(int winnerPlayer);
+
+const char *htmlPage = R"rawliteral(
+/!DOCTYPE html//html//head//title/Tic-Tac-Toe//title//style/
+body { font-family: monospace; text-align: center; }
+#board {
+  margin: 20px auto;
+  width: 180px;
+  height: 180px;
+  display: grid;
+  grid-template-columns: repeat(3, 60px);
+  grid-template-rows: repeat(3, 60px);
+  gap: 5px;
+}
+.cell {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #000;
+  font-size: 48px;
+  line-height: 60px;
+  cursor: default;
+  user-select: none;
+}
+.cell.x { color: red; }
+.cell.o { color: blue; }
+#status { margin-top: 20px; font-size: 20px; }
+#votePrompt {
+  margin-top: 20px;
+  font-size: 18px;
+}
+button {
+  font-size: 16px;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+</style></head><body>
+/h1/Tic-Tac-Toe Spectator//h1/
+<div id="board">
+  <div class="cell" id="c0"></div><div class="cell" id="c1"></div><div class="cell" id="c2"></div>
+  <div class="cell" id="c3"></div><div class="cell" id="c4"></div><div class="cell" id="c5"></div>
+  <div class="cell" id="c6"></div><div class="cell" id="c7"></div><div class="cell" id="c8"></div>
+</div>
+<div id="status">Waiting for players...</div>
+<div id="votePrompt" style="display:none;">
+  <div>Who do you think will win?</div>
+  <button onclick="sendVote(1)">Player 1 (X)</button>
+  <button onclick="sendVote(2)">Player 2 (O)</button>
+</div>
+/h2/Leaderboard//h2/
+/ul id="leaderboard" style="list-style:none; font-size:16px; padding:0;"///ul/
+
+<script>
+let ws;
+let board = Array(9).fill(' ');
+let currentTurn = 1;
+let hasVoted = false;
+
+let spectatorName = "";
+
+function connectWebSocket() {
+  ws = new WebSocket('ws://' + location.hostname + ':81/');
+  ws.onopen = () => {
+    spectatorName = prompt("Enter your name to join the leaderboard:", "Guest") || "Guest";
+    ws.send(JSON.stringify({ type: "SET_NAME", name: spectatorName }));
+  };
+  ws.onmessage = handleWSMessage;
+  ws.onclose = () => setTimeout(connectWebSocket, 1000);
+}
+connectWebSocket();
+
+function handleWSMessage(evt) {
+  let data = JSON.parse(evt.data);
+  if (data.type === "INIT") {
+    board = data.board.split(''); currentTurn = data.currentTurn; updateBoard();
+    showStatus('Game started. Player ' + currentTurn + '\'s turn');
+    hideVotePrompt();
+    hasVoted = false;
+  } else if (data.type === "MOVE") {
+    board[data.index] = data.player == 1 ? 'X' : 'O'; currentTurn = data.nextTurn;
+    updateBoard(); showStatus('Player ' + currentTurn + '\'s turn');
+  } else if (data.type === "WIN") {
+    board = data.board.split(''); updateBoard(); highlightWinLine(...data.line);
+    showStatus('Player ' + data.player + ' wins!');
+  } else if (data.type === "TIE") {
+    board = data.board.split(''); updateBoard(); showStatus('Game is a tie!');
+  } else if (data.type === "RESET") {
+    board = Array(9).fill(' '); updateBoard(); showStatus('Game reset. Player 1\'s turn.');
+    hideVotePrompt();
+    hasVoted = false;
+  } else if (data.type === "VOTE") {
+    showVotePrompt();
+  } else if (data.type === "VOTE_RESULT") {
+    alert(data.message);
+  }
+  else if (data.type === "LEADERBOARD") {
+  updateLeaderboard(data.scores);
+}
+
+else if (data.type === "DEBT") {
+  alert(data.message);
+  // Optionally redirect or close the tab after a short delay
+  setTimeout(() => {
+    // Close the WebSocket connection
+    ws.close();
+    // Redirect to a logged out page or just reload blank page
+    window.location.href = "about:blank";
+  }, 3000);
+}
+
+}
+
+function sendVote(playerNum) {
+  if (hasVoted) return;
+  ws.send(JSON.stringify({type:"VOTE", player: playerNum}));
+  hasVoted = true;
+  hideVotePrompt();
+}
+
+function showVotePrompt() {
+  document.getElementById('votePrompt').style.display = 'block';
+}
+
+function hideVotePrompt() {
+  document.getElementById('votePrompt').style.display = 'none';
+}
+
+function updateBoard() {
+  for (let i = 0; i < 9; i++) {
+    let cell = document.getElementById('c' + i);
+    cell.textContent = board[i];
+    cell.className = 'cell';
+    if (board[i] === 'X') cell.classList.add('x');
+    else if (board[i] === 'O') cell.classList.add('o');
+    cell.style.backgroundColor = '#fff';
+  }
+}
+
+function highlightWinLine(a,b,c) {
+  [a,b,c].forEach(i => { document.getElementById('c'+i).style.backgroundColor = '#8f8'; });
+}
+
+function showStatus(msg) {
+  document.getElementById('status').textContent = msg;
+}
+function updateLeaderboard(scores) {
+  let ul = document.getElementById("leaderboard");
+  ul.innerHTML = "";
+  scores.sort((a, b) => b.score - a.score);
+  for (let entry of scores) {
+    let li = document.createElement("li");
+    li.textContent = `${entry.name} (${entry.id}): ${entry.score} pts`;
+    ul.appendChild(li);
+  }
+}
+
+setInterval(() => {
+  if (ws.readyState === WebSocket.OPEN) ws.send("ping");
+}, 5000);
+</script></body></html>
+)rawliteral";
+
+void setup() {
+  Serial.begin(115200);
+  for (int i = 0; i < 9; i++) board[i] = ' ';
+
+  WiFi.mode(WIFI_AP_STA);
+  WiFi.softAP(SERVER_SSID, SERVER_PASS);
+  Serial.println("SoftAP started:");
+  Serial.println(WiFi.softAPIP());
+
+  WiFi.begin(STA_SSID, STA_PASS);
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500); Serial.print(".");
+  }
+  Serial.println("\nConnected to LAN!");
+  Serial.print("LAN IP: "); Serial.println(WiFi.localIP());
+
+  tcpServer.begin();
+  tcpServer.setNoDelay(true);
+
+  httpServer.on("/", []() {
+    httpServer.send(200, "text/html", htmlPage);
+  });
+
+  httpServer.begin();
+  webSocket.begin();
+  webSocket.onEvent(handleWebSocketEvent);
+}
+
+void loop() {
+  for (int i = 0; i < MAX_CLIENTS; i++) {
+    if (!clients[i] || !clients[i].connected()) {
+      if (clients[i]) clients[i].stop();
+      if (tcpServer.hasClient()) {
+        clients[i] = tcpServer.available();
+        if (clients[i]) sendInitState(clients[i], i == 0 ? 1 : 2);
+      }
+    }
+  }
+
+  for (int i = 0; i < MAX_CLIENTS; i++) {
+    if (clients[i] && clients[i].connected() && clients[i].available()) {
+      String msg = clients[i].readStringUntil('\n');
+      msg.trim();
+      if (msg.length() > 0) handleMessage(i + 1, msg);
+    }
+  }
+
+  httpServer.handleClient();
+  webSocket.loop();
+}
+
+void sendInitState(WiFiClient &client, int playerId) {
+  String msg = "INIT," + String(playerId) + ",";
+  for (int i = 0; i < 9; i++) msg += board[i];
+  msg += "," + String(currentTurn);
+  client.println(msg);
+}
+
+void broadcastTCP(const String &msg) {
+  for (int i = 0; i < MAX_CLIENTS; i++) {
+    if (clients[i] && clients[i].connected()) clients[i].println(msg);
+  }
+}
+
+void broadcastWebSocket(const String& msg) {
+  String mutableMsg = msg;
+  webSocket.broadcastTXT(mutableMsg);
+}
+
+int checkWin() {
+  for (int i = 0; i < 8; i++) {
+    int a = wins[i][0], b = wins[i][1], c = wins[i][2];
+    if (board[a] != ' ' && board[a] == board[b] && board[b] == board[c]) return i;
+  }
+  return -1;
+}
+
+bool checkTie() {
+  for (int i = 0; i < 9; i++) if (board[i] == ' ') return false;
+  return true;
+}
+
+void handleMessage(int playerId, const String &msg) {
+  if (msg.startsWith("MOVE,")) {
+    if (playerId != currentTurn) return;
+
+    int index = msg.substring(5).toInt();
+    if (index < 0 || index > 8 || board[index] != ' ') return;
+
+    board[index] = (playerId == 1) ? 'X' : 'O';
+
+    broadcastTCP("MOVE," + String(playerId) + "," + String(index));
+    String wsMsg = "{\"type\":\"MOVE\",\"player\":" + String(playerId) + ",\"index\":" + String(index) + ",\"nextTurn\":" + String(3 - playerId) + "}";
+    broadcastWebSocket(wsMsg);
+
+    int winIndex = checkWin();
+    if (winIndex != -1) {
+      int a = wins[winIndex][0], b = wins[winIndex][1], c = wins[winIndex][2];
+      broadcastTCP("WIN," + String(playerId) + "," + String(a) + "," + String(c));
+      String msg = "{\"type\":\"WIN\",\"player\":" + String(playerId) + ",\"line\":[" + String(a) + "," + String(b) + "," + String(c) + "],\"board\":\"";
+      for (int i = 0; i < 9; i++) msg += board[i];
+      msg += "\"}";
+      broadcastWebSocket(msg);
+      delay(3000);
+      broadcastVoteResults(playerId);
+      resetGame();
+      return;
+    }
+
+    if (checkTie()) {
+      broadcastTCP("TIE");
+      String msg = "{\"type\":\"TIE\",\"board\":\"";
+      for (int i = 0; i < 9; i++) msg += board[i];
+      msg += "\"}";
+      broadcastWebSocket(msg);
+      delay(2000);
+      broadcastVoteResults(0); // 0 means tie
+      resetGame();
+      return;
+    }
+
+    currentTurn = 3 - playerId;
+    broadcastTCP("TURN," + String(currentTurn));
+    broadcastWebSocket("{\"type\":\"TURN\",\"currentTurn\":" + String(currentTurn) + "}");
+  }
+  else if (msg.startsWith("VOTE,")) {
+    // Expected: VOTE,1 or VOTE,2
+    int votePlayer = msg.substring(5).toInt();
+    votes[playerId] = votePlayer;
+    Serial.printf("Player %d voted for player %d\n", playerId, votePlayer);
+  }
+  else if (msg.startsWith("{")) {
+    // Also accept JSON votes from websocket clients
+    DynamicJsonDocument doc(256);
+    DeserializationError error = deserializeJson(doc, msg);
+    if (!error && doc.containsKey("type") && strcmp(doc["type"], "VOTE") == 0) {
+      int votePlayer = doc["player"];
+      votes[playerId] = votePlayer;
+      Serial.printf("WebSocket client %d voted for player %d\n", playerId, votePlayer);
+    }
+  }
+}
+
+void resetGame() {
+  for (int i = 0; i < 9; i++) board[i] = ' ';
+  currentTurn = 1;
+  votes.clear(); // Clear previous votes
+
+  // Send INIT message to each TCP client with their proper ID
+  for (int i = 0; i < MAX_CLIENTS; i++) {
+    if (clients[i] && clients[i].connected()) {
+      sendInitState(clients[i], i == 0 ? 1 : 2);
+    }
+  }
+
+  // Send RESET to all WebSocket clients
+  broadcastWebSocket("{\"type\":\"RESET\"}");
+
+  // Ask for votes now
+  broadcastVoteRequest();
+}
+
+void broadcastVoteRequest() {
+  String msg = "{\"type\":\"VOTE\"}";
+  broadcastWebSocket(msg);
+}
+
+void broadcastVoteResults(int winnerPlayer) {
+  // Tally wins/losses
+  if (winnerPlayer == 1) {
+    player1Wins++; player2Losses++;
+  } else if (winnerPlayer == 2) {
+    player2Wins++; player1Losses++;
+  } else {
+    ties++;
+  }
+
+  // For each vote, update leaderboard and send results
+ for (auto &pair : votes) {
+  uint8_t clientNum = pair.first;
+  int votedPlayer = pair.second;
+
+  String message;
+  if (winnerPlayer == 0) {
+    message = "Game ended in a tie.";
+  } else if (votedPlayer == winnerPlayer) {
+    message = "You were correct! Player " + String(winnerPlayer) + " won.";
+    leaderboard[clientNum] += 1;
+  } else {
+    message = "Sorry, you were wrong. Player " + String(winnerPlayer) + " won.";
+    leaderboard[clientNum] -= 1;
+  }
+
+  // Send vote result message
+  String msg = "{\"type\":\"VOTE_RESULT\",\"message\":\"" + message + "\"}";
+  webSocket.sendTXT(clientNum, msg);
+
+  // Check for -3 score (debt limit)
+  if (leaderboard[clientNum] <= -3) {
+    // Send debt message before disconnect
+    String debtMsg = "{\"type\":\"DEBT\",\"message\":\"You Lose! Debt Sucker!!! Logging you out...\"}";
+    webSocket.sendTXT(clientNum, debtMsg);
+
+    delay(500); // brief delay to ensure message is sent
+    webSocket.disconnect(clientNum);
+  }
+}
+
+  
+
+  // Broadcast leaderboard to all clients
+  DynamicJsonDocument doc(1024);
+doc["type"] = "LEADERBOARD";
+JsonArray array = doc.createNestedArray("scores");
+for (const auto& entry : leaderboard) {
+  JsonObject obj = array.createNestedObject();
+  obj["id"] = entry.first;
+  obj["score"] = entry.second;
+  obj["name"] = spectatorNames.count(entry.first) ? spectatorNames[entry.first] : "Guest";
+}
+String json;
+serializeJson(doc, json);
+broadcastWebSocket(json);
+
+}
+
+void sendLeaderboardToClient(uint8_t clientNum) {
+  DynamicJsonDocument doc(1024);
+  doc["type"] = "LEADERBOARD";
+  JsonArray array = doc.createNestedArray("scores");
+  for (const auto& entry : leaderboard) {
+    JsonObject obj = array.createNestedObject();
+    obj["id"] = entry.first;
+    obj["score"] = entry.second;
+    obj["name"] = spectatorNames.count(entry.first) ? spectatorNames[entry.first] : "Guest";
+  }
+  String json;
+  serializeJson(doc, json);
+  webSocket.sendTXT(clientNum, json);
+}
+
+void handleWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+  if (type == WStype_CONNECTED) {
+    String msg = "{\"type\":\"INIT\",\"board\":\"";
+    for (int i = 0; i < 9; i++) msg += board[i];
+    msg += "\",\"currentTurn\":" + String(currentTurn) + "}";
+    webSocket.sendTXT(num, msg);
+    // Also prompt for vote if game just reset
+    if (votes.empty()) {
+      broadcastVoteRequest();
+    }
+  } else if (type == WStype_TEXT) {
+    String message = String((char*)payload);
+    if (message == "ping") return;
+    Serial.println("WebSocket message: " + message);
+
+    if (message.startsWith("{")) {
+      // Parse JSON message
+      DynamicJsonDocument doc(256);
+      DeserializationError error = deserializeJson(doc, message);
+      if (!error && doc.containsKey("type")) {
+        String typeStr = doc["type"].as<String>();
+
+        if (typeStr == "VOTE") {
+          int votePlayer = doc["player"];
+          votes[num] = votePlayer;
+          Serial.printf("WebSocket client %d voted for player %d\n", num, votePlayer);
+        }
+        else if (typeStr == "SET_NAME") {
+          String name = doc["name"].as<String>();
+          spectatorNames[num] = name;
+          Serial.printf("Spectator %d set name: %s\n", num, name.c_str());
+
+          // Optionally send the updated leaderboard to this client only:
+          sendLeaderboardToClient(num);
+        }
+      }
+    }
+  }
+}
+		</code></pre>
+		</div>
+		<div style="text-align: center">
+      <video width="60%" controls>
+        <source src="./Module_09 Images/140db37f-62c3-4089-a849-83fa96fc4d1d.mp4">
+        womp womp pal
+      </video>
+    </div>
+</body>
 </html>
