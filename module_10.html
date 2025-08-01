@@ -110,21 +110,114 @@
 
 <body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
 	<div style="margin-left: 32%; padding-right: 2%">
-		<h1>Heading 1</h1>
-		<h2>Heading 2</h2>
-		<h3>Heading 3</h3>
-		<p>Paragraph<p>
+		<h1 style="text-align: center">Assignments</h1>
+
+		<h2>Machine Building</h2>
+		<p>My team included <a style="color: #000000" href="https://fulcrum-08.github.io/PS70/index.html"><u>Mazen</u></a>, <a style="color: #000000" href="https://liblivity.github.io/physs12/index.html"><u>Stephen</u></a>, <a style="color: #000000" href="https://hjackson27745.github.io/phys-12/index.html"><u>Helena</u></a>, and myself. Our team's decided goal was to create a drawing machine that could recreate images. This section only includes my work on the end effector, for any who may wish to reuse it. For a full documentation of the project, see <a style="color: #000000" href="https://liblivity.github.io/physs12/index.html"><u>Stephen's Website.</u></a>
+
+		<p>To figure out how we could print in color with as few as possible, I looked up the different <a style="color: #000000" href="https://sarahrenaeclark.com/advanced-color-theory-ryb-vs-cmy/?srsltid=AfmBOooXqW_pgi-OUZq7u6VDbLyR5loQpNIyXgOs6wL1mh21bm5Ud-nE"><u>color theories.</u></a> I decided upon CMYK: Cyan, Magenta, Yellow, and Black. This would allow for as many colors as possible with the fewest number of pens.</p>
+
+		<p>To make sure a servo could power my design, I did a little bit of physics, as shown below. I got the servo torque from this video: https://www.youtube.com/watch?v=PEcW4ja_glE</p>
+		<p>Load Torque is 0.644 N*m. Measured required torque for current design. Since the pivot is in the middle, and there exists gravitational torque on either side, I took half of the design as the mass and measured the gravitational torque on that. Assuming wood to be the material of choice, I found the weight of a piece of plywood, divided the weight by the area, and applied it to the chosen area of the design. The mass came out to be 0.2019kg. To quickly get an estimate on torque, I set the center of gravity in the middle of the horizontal axis. The estimated gravitational torque is 0.146 N*m. In theory, the servo motor should handle the weight just fine. I'm realizing now I forgot about depth, but the design calls for a small depth, so hopefully it makes a negligable impact on the needed torque.</p>
+
+		<p>I printed a smaller version to test my tightening mechanism: clamps. The clamps did not work and, in fact, snapped. Instead, I reused the tightening mechanism that the kit came from but in a smaller version. I redesigned the pencil attachement to instead hold a server, which would then hold the pen switching mechanism. It failed 3 times due to sizing errors, but I finally got it on the fourth.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 110%" src="./Module_10 Images/Screenshot (35).png" alt="3d model baby"</img>
+				</td>
+				<td>
+					<img style="width: 60%" src="./Module_10 Images/IMG_0540.jpeg" alt="it snapped :("</img>
+				</td>
+			</tr>
+		</table>
+
+		<p>I bought 3 edding 3000 markers - cyan, magenta, and yellow - and a black sharpie from Blick Art Supplies. I adjusted the pen diameters and lengths in the CAD and reprinted. After testing it with the servo, I found that it was unstable and would consistently fly off on the second turn. To try and fix this problem, I tapped two holes into the print just to the side of where the servo motor was placed. I then tied twill to connect the pen swapper to the wooden dowels that connected the servo attachment to the Y-axis arm. The reason I used string was because I didn't want to design and reprint a mechanism that would allow for the pen swapper to be connected to a stationary object while it rotated. After spending 40 minute trying to get it to work, I realized I literally built in a hole for the pen swapper to screw into the servo. After that, the entire problem was sovled.</p>
+
+		<p>I repurposed the UselessServo code and tested out both the pen swapping and the pen lifting functions. It worked, thank goodness. What's left for that is now fine tuning the rotations to match each marker color.</p>
+		<div style="background-color: #E6E6E6">
+		<pre><code>
+#include <ESP32Servo.h>
+int switchServoPin = D6;
+int liftpin = D7;
+
+class UselessServo{
+  Servo servo;
+  int pos;
+  int increment;
+  int updateInterval;
+  unsigned long lastUpdate;
+  int startPos;
+  int endPos;
+
+  public:
+  UselessServo(int interval, int start, int target){
+    updateInterval = interval;
+    increment = -1;
+    startPos = start-1;
+    pos = startPos;
+    endPos = target;
+  }
+
+  void Attach(int pin){
+    servo.attach(pin);
+    servo.write(startPos);
+  }
+
+  void Detach(){
+    servo.detach();
+  }
+
+  void toTarget(){
+    servo.write(endPos);
+  }
+
+  void Return(){
+    servo.write(startPos);
+  }
+};
+
+UselessServo pens(0.5, 180, 0);
+UselessServo lift(0.5, 180, 90);
+
+void setup() {
+  pens.Attach(switchServoPin);
+  lift.Attach(liftpin);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // teatime.locsl
+    pens.toTarget();
+    delay(3000);
+    pens.Return();
+    delay(3000);
+    lift.toTarget();
+    delay(1500);
+    lift.Return();
+}
+		</code></pre>
+		</div>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_10 Images/IMG_0557.jpeg" alt="teamwork was inadequate"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_10 Images/IMG_0558.jpeg" alt="no one lasts alone"</img>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_10 Images/IMG_0559.jpeg" alt="there's only a week left."</img>
+				</td>
+				<td>
+					<video width="100%" controls>
+		        <source src="./Module_10 Images/IMG_0560.mov">
+		        unhealthy unclean.. walking in circles. now. do not disturb. scream in silence. everyone's sleeping.
+		      </video>
 
 </body>
-
-Documentation Rambling:
-Color-Combining Theory: https://sarahrenaeclark.com/advanced-color-theory-ryb-vs-cmy/?srsltid=AfmBOooXqW_pgi-OUZq7u6VDbLyR5loQpNIyXgOs6wL1mh21bm5Ud-nE
-Decided to try CMYK. Only requires 4 colors, which means I can use a 180 degree servo motor.
-
-Servo Torque: https://www.youtube.com/watch?v=PEcW4ja_glE
-Load Torque is 0.644 N*m. Measured required torque for current design. [Insert screenshot]. Since the pivot is in the middle, and there exists gravitational torque on either side, I took half of the design as the mass and measured the gravitational torque on that. Assuming wood to be the material of choice, I found the weight of a piece of plywood, divided the weight by the area, and applied it to the chosen area of the design. The mass came out to be 0.2019kg. To quickly get an estimate on torque, I set the center of gravity in the middle of the horizontal axis. The estimated gravitational torque is 0.146 N*m. In theory, the servo motor should handle the weight just fine. I'm realizing now I forgot about depth, but the design calls for a small depth, so hopefully it makes a negligable impact on the needed torque.
-
-The clamps did not work and, in fact, snapped. Instead, I reused the tightening mechanism that the kit came from but in a smaller version.
 
 
 
