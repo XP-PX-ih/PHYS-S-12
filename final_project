@@ -30,3 +30,19 @@ Average use of mouse: 2-3 hours per day.
 
 [Insert CADs of all parts]
 [Insert Assembly]
+
+
+bill of materials
+* 8 omron yellow tactile switches
+* 1 logitech office mouse
+	* 1 PAW3526D8-FJY2 Optical Sensor
+	* 3 Kahli Switches
+	* Scrollwheel LED
+	* Scrollwheel Encoder
+* 4 AA Batteries
+* 1 AA Battery Pack (4)
+* 2 I/O Switches
+* 11 ESP32-S3-DEVKITC1-N8R2
+* 9 Pogo Pins
+* USB C cable
+* 5 Custom PCBs
