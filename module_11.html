@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<title>Module 11</title>
+
+<style>
+	.nav_elements {
+		font-family: 'Courier New';
+		font-size: 16px;
+		color: #FFFFFF;
+		text-align: center;
+	}
+	.weektext {
+		font-family: 'Courier New';
+		font-size: 65px;
+		color: #FFFFFF;
+	}
+	.moduletext {
+		font-family: 'Courier New';
+		font-size: 40px;
+		color: #FFFFFF;
+	}
+	.nav_button {
+		width: 2%;
+		color: #FFFFFF;
+		font-family: 'Courier New';
+		font-size: 16px
+		transition: all 0.2s;
+	}
+
+	.nav_button:hover {
+		background-image: linear-gradient(#BEC0C2, #A1A2A3);
+		transform: scale(1.05);
+		transition: all 0.2s;
+	}
+	h1 {
+		font-family: 'Courier New';
+		font-size: 40px;
+	}
+	h2{
+		font-family: 'Courier New';
+		font-size: 30px;
+	}
+	h3 {
+		font-family: 'Courier New';
+		font-size: 23px;
+	}
+	p {
+		font-family: 'Courier New';
+		font-size: 17px;
+	}
+	a {
+		color: #FFFFFF;
+		text-decoration: none;
+	}
+
+	a:visited {
+		color: #FFFFFF;
+		text-decoration: none;
+	}
+
+	.download_button {
+		font-size: 17px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+		padding-left: 2%;
+		padding-right: 2%;
+		border: 0px solid;
+		background-image: linear-gradient(#FBBCC8, #F493A7);
+		transition: all 0.2s;
+	}
+
+	.download_button:hover {
+		transform: scale(1.05);
+		transition: all 0.2s;
+	}
+</style>
+
+<nav style="height: 100vh; width: 30%; position: fixed; left: 0; top: 0; z-index: 99; overflow: hidden">
+	<div style="height: 100%; width: 100%; padding-left: 2%; padding-right: 2%; background-image: linear-gradient(#1267E7, #082C63)">
+		<br><br>
+		<p class="nav_elements" style="margin-right: 5%">Introduction to Digital Fabrication</p>
+		<div style="text-align: center; margin-right: 5%">
+			<table style="width: 100%; margin-left: auto; margin-right: auto">
+				<tr>
+					<td class="nav_button">
+						<a href="index.html">
+							<div>
+								<p>Home</p>
+							</div>
+						</a>
+					</td>
+					<td class="nav_button">
+					<a href="about.html">
+						<div>
+							<p>About</p>
+						</div>
+					</a>
+					</td>
+					<td class="nav_button">
+						<a href="module_12.html">
+							<div>
+								<p>Final Project</p>
+							</div>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p class="weektext">Wildcard</p>
+		<p class="moduletext">Week 6</p>
+	</div>	
+</nav>
+
+<body style="height: 100%; top: 0; margin: 0%; background-repeat: no-repeat; background-attachment: fixed; background-image: linear-gradient(0deg, #F0F0F0, #FFFFFF)">
+	<div style="margin-left: 32%; padding-right: 2%">
+		<h1 style="text-align: center">Assignments</h1>
+
+		<h2>Integrated Project</h2>
+		<p>After testing the original chassis design of the mouse, I upped the width to 100mm to better allow the hand to fit.</p>
+		<div style="text-align: center">
+			<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc7b784f50a87c6d8a?mode=embed" width="60%" height="640px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+		</div>
+
+		<p>I decided to repurpose an optical sensor from a <a style="color: #000000" href="https://www.logitech.com/en-us/products/mice/b100-usb-business-mouse.910-001439.html"><u>Logitech B100</u></a> office mouse, as well as its mouse switches and scroll wheel encoder. I found the schematic information from this <a style="color: #000000" href="https://github.com/RandomDelta6/USB-Mouse"><u>GitHub Page.</u></a> Additionally, I also switched to the <a style="color: #000000" href="https://www.amazon.com/ESP32-S3-DevKitC-1-N8R2-Development-ESP32-S3-WROOM-1-Microcontroller-Integrated/dp/B0DFTKFWT2/ref=sr_1_5?crid=UGK6CS2UE2AS&dib=eyJ2IjoiMSJ9.pwGaSkmRaLQsBtQrpPJJ4ZVSkCOKQiun1FmUAwyHxL2sQrC9GZIyM_dcEt0P9N6q6OWBNxUalg34KgQ-tDVNzPymbjAb5KqZJju4hZpUk2dUWbAGcWwC40HT360xyUHwHduEB1IAoU6mOTFzMsDzz-l0uG4J-ImPKvHYMHHvVrIwOrC6tgI_Ku9qz-QmTEbeOGtypq-gge8asXsN-1H_wQGLb5V1kwc8eAATKt8phF76pi_1UtVt-we90MB3JeS__PpRXCZhwOfWnyCUlxlB3Lh50QEeCQ1-tHzTeF_Vl6M.QUyyZEtdHhSw1p4j2m2cewEA8dkvudN7vQsro6iQAVo&dib_tag=se&keywords=esp32%2Bs3%2Bdevkit%2Bn8r2&qid=1754871988&s=electronics&sprefix=esp32%2Bs3%2Bdevkit%2Bn8r2%2Celectronics%2C379&sr=1-5&th=1"><u>ESP32-S3-DEVKITC1-N8R2</u></a> dev board because it had USB-OTG capabilities, which would allow me to attach the optical sensor to the board without having to recode the entire sensor and mouse fuctnionality.</p>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/Screenshot (45).png" alt="ghagahgahg"</img>
+				</td>
+				<td>
+					<img style="width: 50%" src="./Module_11 Images/esp32.jpg" alt="i think I killed it"</img>
+				</td>
+			</tr>
+		</table>
+
+		<p>I then worked on finalizing the CAD for the mouse chassis. To do this, I CADed all of the components that I would place inside the mouse. I then made an assembly and built supports and blank PCB boards to house everything. To finish, I combined all of the components, with the ones inside as holes, so that I could guarantee there was enough space for all of the parts to fit. After that, I sent the two pieces to the 3D printer. This part of the project took the longest.</p>
+		<div style="text-align: center">
+			<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc4bd528fede778c58?mode=embed" width="60%" height="640" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+		</div>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc730f206d828819c9?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc3f6a3dd104687762?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc89281b9ab2fa051b?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fcbc077df28516c764?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc1172307cfa8fc921?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc46748bc3032d41b7?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc88acf123fec3cdd2?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc3b822673c1672db7?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fcff1de542f1382d8d?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fcc34eae416d228b5f?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc28957badaef294fd?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fce30b526641031a34?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fcce9243c23628cd04?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc8cc42898319e6dfd?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+				<td>
+					<iframe src="https://gmail5259032.autodesk360.com/shares/public/SH30dd5QT870c25f12fc13eaf665aef813c6?mode=embed" width="100%" height="200" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
+				</td>
+			</tr>
+		</table>
+
+		<p>While those parts were printing, I learned from Bobby how to design PCBs in KiCad. I designed five PCBs in total, and, mostly through Bobby, managed to mill three of them. Unfortunately, the ESP32-S3 did not fit on the motherboard PCB because the downloaded footprint was wrong. I redesigned it, but I did not have time to remill it.</p>
+		<table style="width: 60%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/Screenshot (43).png" alt="leaves of 3 do something"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/Screenshot (40).png" alt="leaves of 4 bring more"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/Screenshot (42).png" alt="square"</img>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/Screenshot (41).png" alt="the motherboard"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/Screenshot (44).png" alt="THIS THING TOOK ME 5 HOURS TO DESIGN"</img>
+				</td>
+			</tr>
+		</table>
+		<table style="width: 70%; margin-left: auto; margin-right: auto">
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/3board.jpeg"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/4board.jpeg"</img>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/motherboard.jpeg"</img>
+				</td>
+				<td>
+					<img style="width: 100%" src="./Module_11 Images/solderedboards.jpeg"</img>
+				</td>
+			</tr>
+		</table>
+
+		<p>Once I had all the components I could gather, I physically assembled everything. I started by installing the battery pack components. I took apart an existing battery pack and relocated the metal springs and plates into the 3D print through heat inserts. I soldered wires to connect across the gap in between the two pairs of batteries. I soldered another wire to an I/O switch so that I could turn the device on and off, and I soldered another wire to the ground side of a battery for ground.</p>
+		<div style="text-align: center">
+			<img style="width: 60%" src="./Module_11 Images/batterypack.jpeg"</img>
+		</div>
+
+		<p>Next, I soldered the keyboard switches to the PCBs Bobby and I made and then soldered wires to them. Then I hot glued them into the top of the chassis. Originally, I was going to screw the PCBs into place, but the print was not perfect and I did not set the correct length of screw in Fusion 360.</p>
+		<div style="text-align: center">
+			<img style="width: 60%" src="./Module_11 Images/TopCasing+buttons.jpeg"</img>
+		</div>
+
+		<p>Once that was done, I desoldered the mouse switches from the Logitech mouse's PCB and hot glued them into the slots on my mouse chassis. I'm very happy with how that aspect of the design went. I then soldered wires to the pins on the switches.</p>
+		<div style="text-align: center">
+			<img style="width: 60%" src="./Module_11 Images/MouseSwitches.jpeg"</img>
+		</div>
+
+		<p>The last thing I did in terms of assembly was hot glueing another switch into the base of the print and soldering wires to it. This switch is meant to reverse the direction of the optical sensor and switch the primary and secondary mouse buttons for when the top casing is switched for a different hand.</p>
+		<div style="text-align: center">
+			<img style="width: 60%" src="./Module_11 Images/directionSW.jpeg"</img>
+		</div>
+
+		<p>I couldn't get anything done with the optical sensor because the ESP32-S3 did not work, and I also couldn't get the board milled. I did, however, develop this test code that hopefully works.</p>
+<div style="background-color: #E6E6E6">
+<pre><code>
+#include "EspUsbHost.h"
+#include <BleKeyboard.h>
+#include <BLeMouse.h>
+
+class MyEspUsbHost : public EspUsbHost {
+  void onMouseButtons(hid_mouse_report_t report, uint8_t last_buttons) {
+    Serial.printf("last_buttons=0x%02x(%c%c%c%c%c), buttons=0x%02x(%c%c%c%c%c), x=%d, y=%d, wheel=%d\n",
+                  last_buttons,
+                  (last_buttons & MOUSE_BUTTON_LEFT) ? 'L' : ' ',
+                  (last_buttons & MOUSE_BUTTON_RIGHT) ? 'R' : ' ',
+                  (last_buttons & MOUSE_BUTTON_MIDDLE) ? 'M' : ' ',
+                  (last_buttons & MOUSE_BUTTON_BACKWARD) ? 'B' : ' ',
+                  (last_buttons & MOUSE_BUTTON_FORWARD) ? 'F' : ' ',
+                  report.buttons,
+                  (report.buttons & MOUSE_BUTTON_LEFT) ? 'L' : ' ',
+                  (report.buttons & MOUSE_BUTTON_RIGHT) ? 'R' : ' ',
+                  (report.buttons & MOUSE_BUTTON_MIDDLE) ? 'M' : ' ',
+                  (report.buttons & MOUSE_BUTTON_BACKWARD) ? 'B' : ' ',
+                  (report.buttons & MOUSE_BUTTON_FORWARD) ? 'F' : ' ',
+                  report.x,
+                  report.y,
+                  report.wheel);
+
+    // LEFT
+    if (!(last_buttons & MOUSE_BUTTON_LEFT) && (report.buttons & MOUSE_BUTTON_LEFT)) {
+      Mouse.press(MOUSE_LEFT);
+    }
+    if ((last_buttons & MOUSE_BUTTON_LEFT) && !(report.buttons & MOUSE_BUTTON_LEFT)) {
+      Mouse.release(MOUSE_LEFT);
+    }
+
+    // RIGHT
+    if (!(last_buttons & MOUSE_BUTTON_RIGHT) && (report.buttons & MOUSE_BUTTON_RIGHT)) {
+      Mouse.press(MOUSE_RIGHT);
+    }
+    if ((last_buttons & MOUSE_BUTTON_RIGHT) && !(report.buttons & MOUSE_BUTTON_RIGHT)) {
+      Mouse.release(MOUSE_RIGHT);
+    }
+
+    // MIDDLE
+    if (!(last_buttons & MOUSE_BUTTON_MIDDLE) && (report.buttons & MOUSE_BUTTON_MIDDLE)) {
+      Mouse.press(MOUSE_MIDDLE);
+    }
+    if ((last_buttons & MOUSE_BUTTON_MIDDLE) && !(report.buttons & MOUSE_BUTTON_MIDDLE)) {
+      Mouse.release(MOUSE_MIDDLE);
+    }
+  };
+
+  void onMouseMove(hid_mouse_report_t report) {
+    Serial.printf("buttons=0x%02x(%c%c%c%c%c), x=%d, y=%d, wheel=%d\n",
+                  report.buttons,
+                  (report.buttons & MOUSE_BUTTON_LEFT) ? 'L' : ' ',
+                  (report.buttons & MOUSE_BUTTON_RIGHT) ? 'R' : ' ',
+                  (report.buttons & MOUSE_BUTTON_MIDDLE) ? 'M' : ' ',
+                  (report.buttons & MOUSE_BUTTON_BACKWARD) ? 'B' : ' ',
+                  (report.buttons & MOUSE_BUTTON_FORWARD) ? 'F' : ' ',
+                  report.x,
+                  report.y,
+                  report.wheel);
+  Mouse.move(report.x, report.y, report.wheel);
+  };
+};
+
+MyEspUsbHost usbHost;
+
+void setup() {
+  Serial.begin(115200);
+  delay(500);
+  Keyboard.begin();
+  usbHost.begin();
+}
+
+void loop() {
+  while(bleDevice.isConnected())
+  {
+    usbHost.task();
+  }
+}
+</code></pre>
+</div>
+
+		<p>P.S. Don't leave your hot glued components in an even hotter car interior.</p>
+	</div>
+</body>
+
+
+
+
+
+
+</html>

@@ -10,5 +10,23 @@ https://github.com/RandomDelta6/USB-Mouse
 https://user-images.githubusercontent.com/53912269/219696379-7a75c540-ba6e-4ce7-911a-cf19a2ec9020.png
 Switched to ESP32-S3-WROOM-1 with Bobby's input. Done so that the usb data of the optical sensor can be connected to the microcontroller. XIAO and DevKit did not have usb capabilities.
 
-https://youtu.be/ORujXGDqG_I
+s
 Realized I may be able to use the "keyboard.press" command to work the combos and fix the overlapping key presses problem.
+
+Revised Bill of Materials:
+* 8 buttons
+* 1 Logitech Office Mouse
+	* 1 PAW3526D8-FJY2
+	* 2 Kahli Switches
+* 4 AA Batteries
+* ESP32-S3-WROOM-1
+* 2 I/O Switches
+* 9 Pogo Pins
+* USB A-to-C Adapter
+* USB Male Header
+
+https://www.perplexity.ai/search/how-much-does-the-average-offi-HO.6va4lRLuj0XICjbRUfg
+Average use of mouse: 2-3 hours per day.
+
+[Insert CADs of all parts]
+[Insert Assembly]
