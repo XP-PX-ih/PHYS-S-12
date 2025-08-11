@@ -74,6 +74,11 @@
 		transform: scale(1.05);
 		transition: all 0.2s;
 	}
+
+	li {
+		font-family: 'Courier New';
+		font-size: 17px;
+	}
 </style>
 
 <nav style="height: 100vh; width: 30%; position: fixed; left: 0; top: 0; z-index: 99; overflow: hidden">
@@ -123,6 +128,13 @@
 		<p>To allow for decently comfortable and fast (40wpm) operation of both mouse and keyboard, simultaneously, with one hand.</p>
 
 		<h2>Features</h2>
+		<ul>
+			<li>8 Key Condensed Keyboard - ARTSEY.IO Layout</li>
+			<li>Modular Top for Quick Adjustability for Switching Hands</li>
+			<li>I/O Switch to Reverse Optical Sensor and Mouse Buttons for Switching Hands</li>
+			<li>Wireless Connectivity through BLE</li>
+			<li>Powered by Four AA Batteries</li>
+		</ul>
 
 		<h2>Bill of Materials</h2>
 		<table style="width: 70%; margin-left: auto; margin-right: auto">
@@ -135,14 +147,90 @@
 			</tr>
 			<tr>
 				<td>8</td>
-				<td>Omron Tactile Orange Switches</td>
+				<td>Omron Tactile Orange Switch</td>
 				<td>Keyboard Switches</td>
 				<td>0.50</td>
 				<td>3.00</td>
 			</tr>
+			<tr>
+				<td>1</td>
+				<td>Logitech B100 Business Mouse</td>
+				<td>Scrapped for Parts (Below)</td>
+				<td>7.99</td>
+				<td>7.99</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>PAW3526D8-FJY2 Optical Sensor</td>
+				<td>Captures Mouse Movements</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Kalih Switches</td>
+				<td>For Mouse Switches and Scroll Wheel Click</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>ScrollWheel LED+Encoder</td>
+				<td>Captures Scroll Wheel Movement</td>
+				<td>
+				<td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>AA Battery</td>
+				<td>Powers Microcontroller</td>
+				<td>0.81</td>
+				<td>3.24</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>I/O Switch</td>
+				<td>Turn Device On/Off and Switch Orientation</td>
+				<td>0.60</td>
+				<td>1.20</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>ESP32-S3-DEVKITC1-N8R2</td>
+				<td>Microcontroller</td>
+				<td>6.67</td>
+				<td>6.67</td>
+			</tr>
+			<tr>
+				<td>9</td>
+				<td>Pogo Pins</td>
+				<td>Allow for Contact-Based Communication - Modularity</td>
+				<td>0.56</td>
+				<td>5.04</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>USB-C Cable</td>
+				<td>Connect Opitcal Sensor to Microcontroller</td>
+				<td>6.39</td>
+				<td>6.39</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Total Cost:</td>
+				<td>33.53</td>
+		</table>
 
 
-		<h2>3D Printed Parts</h2>
+		<h2>3D Printed Parts and Code</h2>
+		<a href="./Downloadable Files/Canden - MouseChassis_Top.stl" download><button type="button" class="download_button">Mouse Top .stl File</button></a>
+		<a href="./Downloadable Files/Canden - MouseChassis_Base.stl" download><button type="button" class="download_button">Mouse Base .stl File</button></a>
+		<a href="./Downloadable Files/artsey_keyboard.ino" download><button type="button" class="download_button">Mouse/Keyboard Arduino IDE Code</button></a>
+		<br>
+
+		<h2>Demo Video</h2>
 	</div>
 </body>
 
